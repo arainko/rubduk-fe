@@ -12,6 +12,11 @@
 /build
 
 # misc
+
+# vscode and it's extensions
+.vscode/
+.metals/
+
 .DS_Store
 .env.local
 .env.development.local
