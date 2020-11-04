@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
-import App from './Components/App/App';
 import Navbar from './Components/Navbar/Nabvar';
+import ProfileCard from './Components/ProfleCard/ProfileCard'
 import theme from './theme';
 import * as serviceWorker from './serviceWorker';
 
@@ -21,7 +21,7 @@ ReactDOM.render(
   <ThemeProvider theme={theme}>
     {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
     <CssBaseline />
-    <App />
+    <ProfileCard />
   </ThemeProvider>,
   document.getElementById('root'),
 );
