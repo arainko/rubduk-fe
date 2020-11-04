@@ -25,13 +25,21 @@ const theme = createMuiTheme( {
     MuiPaper: {
       root: {
         padding: '20px 10px',
-        backgroundColor: '#ffee58',
+        backgroundColor: '#212121',
       },
     },
     MuiButton: {
       root: {
         margin: '5px',
       },
+    },
+    MuiCardHeader: {
+      title: {
+        color: 'white',
+      },
+      subheader: {
+        color: 'white',
+      }
     },
   },
 });

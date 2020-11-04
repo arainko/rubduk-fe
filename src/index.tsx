@@ -7,6 +7,7 @@ import Navbar from './Components/Navbar/Nabvar';
 import ProfileCard from './Components/ProfleCard/ProfileCard'
 import theme from './theme';
 import * as serviceWorker from './serviceWorker';
+import PostArea from './Components/PostArea/PostArea';
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
@@ -24,6 +25,15 @@ ReactDOM.render(
     <ProfileCard />
   </ThemeProvider>,
   document.getElementById('root'),
+);
+
+ReactDOM.render(
+  <ThemeProvider theme={theme}>
+    {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+    <CssBaseline />
+    <PostArea />
+  </ThemeProvider>,
+  document.getElementById('post-area'),
 );
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

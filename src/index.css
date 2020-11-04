@@ -23,9 +23,21 @@ body {
 #root {
   width: 345px;
   height: auto;
-  margin: 0 auto;
+  margin: auto;
   padding: 10px;
   position: relative;
+}
+
+#post-area {
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+@media only screen and (max-width: 600px) {
+  #post-area {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
 }
 
 code {
