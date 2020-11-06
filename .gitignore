@@ -13,9 +13,10 @@
 
 # misc
 
-# vscode and it's extensions
+# IDEs and it's extensions
 .vscode/
 .metals/
+.idea/
 
 .DS_Store
 .env.local

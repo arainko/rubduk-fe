@@ -12,17 +12,20 @@ const useStyles = makeStyles((theme) => ({
         height: 0,
         paddingTop: '90%'
     },
-    card: {
-        backgroundColor: theme.palette.primary.main
+    header: {
+        color: "red",
     },
+    subheader: {
+        color: "red"
+    }
 }));
 
-export default function RecipeReviewCard() {
+export default function ProfileCard() {
     const classes = useStyles();
 
     return (
         <Card className={classes.root}>
-            <CardHeader color="secondary"
+            <CardHeader
             title="Mike Wazowski"
             subheader="joined September 14, 2016"
             />
