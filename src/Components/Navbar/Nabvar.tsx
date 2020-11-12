@@ -15,8 +15,15 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import FaceIcon from '@material-ui/icons/Face'
+
 const useStyles = makeStyles((theme:Theme) => ({
   root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
     flexGrow: 1,
   },
   appBar: {
@@ -26,25 +33,18 @@ const useStyles = makeStyles((theme:Theme) => ({
     }),
   },
   appBarShift: {
-    width: `calc(100%-200px)`,
-    marginLeft: '200px',
+    width: `calc(100%-275px)`,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
   drawer: {
-    width: '200px',
+    width: '275px',
     flexShrink: 0,
   },
   drawerPaper: {
-    width: '200px',
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
+    width: '275px',
   },
   hide: {
     display: 'none',
@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme:Theme) => ({
 export default function ButtonAppBar() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const theme=useTheme();
+  const theme = useTheme();
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -87,6 +87,9 @@ export default function ButtonAppBar() {
       </AppBar>
       <Drawer className={classes.drawer} variant="persistent" anchor="left" open={open} classes={{paper: classes.drawerPaper,}}>
         <div className={classes.drawerHeader}>
+            <Typography color="secondary" variant="h3" className={classes.title}>
+                RubDuk
+            </Typography>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon color="secondary"  /> : <ChevronRightIcon color="secondary" />}
           </IconButton>
