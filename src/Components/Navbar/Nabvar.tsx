@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles ,Theme,useTheme} from '@material-ui/core/styles';
+import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -53,7 +53,6 @@ const useStyles = makeStyles((theme:Theme) => ({
     display: 'flex',
     alignItems: 'center',
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   },
@@ -85,7 +84,14 @@ export default function ButtonAppBar() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer className={classes.drawer} variant="persistent" anchor="left" open={open} classes={{paper: classes.drawerPaper,}}>
+      <Drawer 
+        className={classes.drawer} 
+        variant="temporary"
+        onEscapeKeyDown={handleDrawerClose}
+        onBackdropClick={handleDrawerClose} 
+        anchor="left" 
+        open={open} 
+        classes={{paper: classes.drawerPaper,}}>
         <div className={classes.drawerHeader}>
             <Typography color="secondary" variant="h3" className={classes.title}>
                 RubDuk
