@@ -15,7 +15,9 @@ export default function PostArea() {
 
     return (
         <Paper variant="outlined" className={classes.card}>
-            <Post/>
+            <Post contents="This is my best post"/>
+            <Post contents="POstiiiiiiiiiing"/>
+            <Post contents="Im boreeed"/>
         </Paper>
     )
 }

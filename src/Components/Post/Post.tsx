@@ -26,7 +26,8 @@ const useStyles = makeStyles({
     },
 });
 
-export default function MediaCard() {
+export default function Post(props: any) {
+
     const classes = useStyles();
 
     return (
@@ -46,7 +47,7 @@ export default function MediaCard() {
                         Monsters Inc.
                     </Typography>
                     <Typography variant="body2" component="p">
-                        We scary
+                        {props.contents}
                     </Typography>
                 </CardContent>
             </CardActionArea>
@@ -63,4 +64,4 @@ export default function MediaCard() {
         </CardActions>
         </Card>
     );
-}   
+}
