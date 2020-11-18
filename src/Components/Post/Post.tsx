@@ -34,13 +34,13 @@ export default function Post(props: any) {
         <Card className={classes.card}>
             <CardHeader className={classes.subheader} color="white"
                 title="My job"
-                subheader="added September 24, 2016"
+                subheader={"added " + props.date}
             />
             <CardActionArea>
-                <CardMedia
+                {/* <CardMedia
                     className={classes.media}
                     image="https://pm1.narvii.com/6535/615e425e3c9244ab65f07788409cf15b97723718_hq.jpg"
-                />
+                /> */}
                 <CardContent>
                     {/* TODO The title can be empty */}
                     <Typography gutterBottom variant="h5" component="h2">

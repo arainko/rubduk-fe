@@ -5,7 +5,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 import Navbar from './Components/Navbar/Nabvar';
 import ProfileCard from './Components/ProfleCard/ProfileCard'
-import {LoadingSpinner} from './Components/LoadingSpinner/LoadingSpinner'
 import theme from './theme';
 import * as serviceWorker from './serviceWorker';
 import PostArea from './Components/PostArea/PostArea';
@@ -30,7 +29,6 @@ ReactDOM.render(
   <ThemeProvider theme={theme}>
     <CssBaseline />
     <PostArea />
-    <LoadingSpinner/>
   </ThemeProvider>,
   document.getElementById('post-area'),
 );

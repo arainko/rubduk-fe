@@ -4,10 +4,10 @@ import { usePromiseTracker } from "react-promise-tracker";
 export const LoadingSpinner = (props: any) => {
 const { promiseInProgress } = usePromiseTracker();
   return (
-    <div>
+    <div style={{textAlign: "center"}}>
     {
       (promiseInProgress === true) ?
-        <h3>I am a spinner loader</h3>
+      <h1>I am a spinner loader</h1>
       :
         null
     }
