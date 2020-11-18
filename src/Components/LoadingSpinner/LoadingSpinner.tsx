@@ -1,3 +1,4 @@
+import LinearProgress from '@material-ui/core/LinearProgress';
 import React from 'react'
 import { usePromiseTracker } from "react-promise-tracker";
 
@@ -7,7 +8,7 @@ const { promiseInProgress } = usePromiseTracker();
     <div style={{textAlign: "center"}}>
     {
       (promiseInProgress === true) ?
-      <h1>I am a spinner loader</h1>
+      <LinearProgress color="secondary" />
       :
         null
     }

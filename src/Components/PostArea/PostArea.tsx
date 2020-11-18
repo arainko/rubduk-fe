@@ -6,7 +6,7 @@ import theme from '../../theme'
 import { useEffect } from 'react';
 import { trackPromise } from 'react-promise-tracker';
 import { useState } from 'react';
-import axios from 'axios';
+import { PostAPI } from '../../Api/PostAPI'
 import {LoadingSpinner} from '../LoadingSpinner/LoadingSpinner'
 
 const useStyles = makeStyles({
@@ -22,10 +22,9 @@ export default function PostArea() {
 
     useEffect(() => {
         trackPromise(
-            axios.get(`http://localhost:8080/api/posts`)
-            .then(res => {
-                const downloadedPosts = res.data;
-                setPosts(downloadedPosts.entities);
+            PostAPI.fetchPosts()
+            .then((posts) => {
+                setPosts(posts)
             })
         )
     });
