@@ -26,15 +26,20 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Post(props: any) {
+interface PostProps {
+    contents: string,
+    dateAdded: Date
+}
+
+export default function Post(props: PostProps) {
 
     const classes = useStyles();
 
     return (
         <Card className={classes.card}>
             <CardHeader className={classes.subheader} color="white"
-                title="My job"
-                subheader={"added " + props.date}
+                title="Mike Wazowski"
+                subheader={"added " + props.dateAdded}
             />
             <CardActionArea>
                 {/* <CardMedia
@@ -43,9 +48,6 @@ export default function Post(props: any) {
                 /> */}
                 <CardContent>
                     {/* TODO The title can be empty */}
-                    <Typography gutterBottom variant="h5" component="h2">
-                        Monsters Inc.
-                    </Typography>
                     <Typography variant="body2" component="p">
                         {props.contents}
                     </Typography>

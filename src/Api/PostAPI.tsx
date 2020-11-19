@@ -1,8 +1,7 @@
 import axios from 'axios';
+import config from '../appConfig.json'
 
-const allPostsUrl = 'http://localhost:8080/api/posts'
-
-const fetchPosts = () => axios.get(allPostsUrl)
+const fetchPosts = () => axios.get( config.apiURL + 'posts')
     .then(res => {
     return res.data.entities;
 })

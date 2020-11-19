@@ -31,7 +31,7 @@ export default function PostArea() {
 
     return (
         <Paper variant="outlined" className={classes.card}>
-            {posts.map(post => <Post contents={post.contents} date={post.dateAdded}/>)}
+            {posts.map(post => <Post contents={post.contents} dateAdded={post.dateAdded}/>)}
             <LoadingSpinner/>
         </Paper>
     )
