@@ -5,9 +5,32 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import './Comment.css'
+import './CommentsModal.css'
+import { makeStyles } from '@material-ui/core/styles';
+import theme from '../../theme';
+import { Typography } from '@material-ui/core';
 
-export default function FormDialog() {
+const useStyles = makeStyles({
+    button: {
+        backgroundColor: theme.palette.secondary.dark
+    },
+    commentButton: {
+        color: theme.palette.secondary.dark
+    },
+    inputText: {
+        color: theme.palette.primary.contrastText
+    },
+});
+
+interface CommentsModalProps {
+    postId: number,
+    userId: number
+}
+
+export default function CommentsModal() {
+
+    const classes = useStyles();
+
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -20,7 +43,7 @@ export default function FormDialog() {
 
     return (
         <div>
-            <Button size="small" variant="contained" color="secondary" onClick={handleClickOpen}>
+            <Button size="small" variant="contained" className={classes.button} onClick={handleClickOpen}>
                 Comment
             </Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" disableBackdropClick fullWidth>
@@ -30,19 +53,22 @@ export default function FormDialog() {
                         autoFocus
                         margin="dense"
                         id="name"
-                        label="Write your Comment"
+                        label="Write your comment"
                         type="text"
                         multiline
                         rows={7}
                         fullWidth
                         color="secondary"
+                        InputProps={{
+                            className: classes.inputText
+                        }}
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="secondary">
+                    <Button onClick={handleClose} className={classes.commentButton}>
                         Cancel
                     </Button>
-                    <Button onClick={handleClose} color="secondary">
+                    <Button onClick={handleClose} className={classes.commentButton}>
                         Post Comment
                     </Button>
                 </DialogActions>

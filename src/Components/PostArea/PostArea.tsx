@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 import { trackPromise } from 'react-promise-tracker';
 import { useState } from 'react';
 import { PostAPI } from '../../Api/PostAPI'
-import {LoadingSpinner} from '../LoadingSpinner/LoadingSpinner'
 
 const useStyles = makeStyles({
     card: {
@@ -37,7 +36,7 @@ export default function PostArea(props: PostAreaProps) {
 
     return (
         <Paper variant="outlined" className={classes.card}>
-            {posts.map(post => <Post key={post.id} userName={props.userName} userLastName={props.userLastName} contents={post.contents} dateAdded={post.dateAdded}/>)}
+            {posts.map(post => <Post key={post.id} userId={props.userId} userName={props.userName} userLastName={props.userLastName} contents={post.contents} dateAdded={post.dateAdded}/>)}
         </Paper>
     )
 }
