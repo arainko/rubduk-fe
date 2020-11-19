@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import theme from '../../theme'
 import { CardHeader } from '@material-ui/core';
+import Comment from '../Comment/Comment'
 
 const useStyles = makeStyles({
     media: {
@@ -54,9 +55,7 @@ export default function MediaCard() {
             <Button size="small" variant="contained" className={classes.button}>
                 Like
             </Button>
-            <Button size="small" variant="contained" className={classes.button}>
-                Comment
-            </Button>
+            <Comment/>
             <Button size="small" variant="contained" className={classes.button}>
                 Share
             </Button>
