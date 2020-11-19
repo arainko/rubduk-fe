@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { trackPromise } from 'react-promise-tracker';
 import { useState } from 'react';
 import { PostAPI } from '../../Api/PostAPI'
+import {LoadingSpinner} from '../LoadingSpinner/LoadingSpinner'
 
 const useStyles = makeStyles({
     card: {
