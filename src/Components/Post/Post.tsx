@@ -4,7 +4,6 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import theme from '../../theme'
@@ -19,34 +18,38 @@ const useStyles = makeStyles({
     },
     card: {
         backgroundColor: theme.palette.primary.main,
-        color: theme.palette.primary.contrastText
+        color: theme.palette.primary.contrastText,
+        marginBottom: 5
     },
     button: {
         backgroundColor: theme.palette.secondary.dark
     },
 });
 
-export default function MediaCard() {
+interface PostProps {
+    contents: string,
+    dateAdded: Date
+}
+
+export default function Post(props: PostProps) {
+
     const classes = useStyles();
 
     return (
         <Card className={classes.card}>
             <CardHeader className={classes.subheader} color="white"
-                title="My job"
-                subheader="added September 24, 2016"
+                title="Mike Wazowski"
+                subheader={"added " + props.dateAdded}
             />
             <CardActionArea>
-                <CardMedia
+                {/* <CardMedia
                     className={classes.media}
                     image="https://pm1.narvii.com/6535/615e425e3c9244ab65f07788409cf15b97723718_hq.jpg"
-                />
+                /> */}
                 <CardContent>
                     {/* TODO The title can be empty */}
-                    <Typography gutterBottom variant="h5" component="h2">
-                        Monsters Inc.
-                    </Typography>
                     <Typography variant="body2" component="p">
-                        We scary
+                        {props.contents}
                     </Typography>
                 </CardContent>
             </CardActionArea>
@@ -63,4 +66,4 @@ export default function MediaCard() {
         </CardActions>
         </Card>
     );
-}   
+}

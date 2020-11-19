@@ -11,7 +11,6 @@ import PostArea from './Components/PostArea/PostArea';
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
     <CssBaseline />
     <Navbar />
   </ThemeProvider>,
@@ -20,7 +19,6 @@ ReactDOM.render(
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
     <CssBaseline />
     <ProfileCard />
   </ThemeProvider>,
@@ -29,7 +27,6 @@ ReactDOM.render(
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
     <CssBaseline />
     <PostArea />
   </ThemeProvider>,
