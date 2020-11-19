@@ -20,14 +20,20 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function ProfileCard() {
+interface ProfileCardProps {
+    name: string,
+    lastName: string,
+    createdOn: Date
+}
+
+export default function ProfileCard(props: ProfileCardProps) {
     const classes = useStyles();
 
     return (
         <Card className={classes.root}>
             <CardHeader
-            title="Mike Wazowski"
-            subheader="joined September 14, 2016"
+            title={props.name + " " + props.lastName}
+            subheader={"joined " + props.createdOn}
             />
             <CardMedia
                 className={classes.media}

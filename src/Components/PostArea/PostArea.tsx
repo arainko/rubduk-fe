@@ -15,7 +15,13 @@ const useStyles = makeStyles({
     },
 });
 
-export default function PostArea() {
+interface PostAreaProps {
+    userId: number,
+    userName: string,
+    userLastName: string
+}
+
+export default function PostArea(props: PostAreaProps) {
     const classes = useStyles();
     
     const [posts, setPosts] = useState<any[]>([]);
@@ -27,12 +33,11 @@ export default function PostArea() {
                 setPosts(posts)
             })
         )
-    });
+    }, []);
 
     return (
         <Paper variant="outlined" className={classes.card}>
-            {posts.map(post => <Post contents={post.contents} dateAdded={post.dateAdded}/>)}
-            <LoadingSpinner/>
+            {posts.map(post => <Post key={post.id} userName={props.userName} userLastName={props.userLastName} contents={post.contents} dateAdded={post.dateAdded}/>)}
         </Paper>
     )
 }
