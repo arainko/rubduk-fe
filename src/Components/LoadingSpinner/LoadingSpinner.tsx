@@ -1,4 +1,4 @@
-import LinearProgress from '@material-ui/core/LinearProgress';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import React from 'react'
 import { usePromiseTracker } from "react-promise-tracker";
 
@@ -8,7 +8,7 @@ const { promiseInProgress } = usePromiseTracker();
     <div style={{textAlign: "center"}}>
     {
       (promiseInProgress === true) ?
-      <LinearProgress color="secondary" />
+      <CircularProgress color="secondary" />
       :
         null
     }

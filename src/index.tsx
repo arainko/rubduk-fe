@@ -4,10 +4,9 @@ import './index.css';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 import Navbar from './Components/Navbar/Nabvar';
-import ProfileCard from './Components/ProfleCard/ProfileCard'
 import theme from './theme';
 import * as serviceWorker from './serviceWorker';
-import PostArea from './Components/PostArea/PostArea';
+import UserProfile from './Components/UserProfile/UserProfile';
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
@@ -20,17 +19,9 @@ ReactDOM.render(
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     <CssBaseline />
-    <ProfileCard />
+    <UserProfile />
   </ThemeProvider>,
-  document.getElementById('root'),
-);
-
-ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <PostArea />
-  </ThemeProvider>,
-  document.getElementById('post-area'),
+  document.getElementById('user-info'),
 );
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

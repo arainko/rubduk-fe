@@ -27,6 +27,8 @@ const useStyles = makeStyles({
 });
 
 interface PostProps {
+    userName: string,
+    userLastName: string,
     contents: string,
     dateAdded: Date
 }
@@ -38,7 +40,7 @@ export default function Post(props: PostProps) {
     return (
         <Card className={classes.card}>
             <CardHeader className={classes.subheader} color="white"
-                title="Mike Wazowski"
+                title={props.userName + " " + props.userLastName}
                 subheader={"added " + props.dateAdded}
             />
             <CardActionArea>

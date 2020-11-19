@@ -20,7 +20,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-#root {
+#user-info {
+  align-items: center;
+}
+
+#profile-card {
   max-width: 345px;
   height: auto;
   margin: auto;
