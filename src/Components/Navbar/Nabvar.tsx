@@ -15,6 +15,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import FaceIcon from '@material-ui/icons/Face'
+import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
+import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles((theme:Theme) => ({
   root: {
@@ -56,9 +58,13 @@ const useStyles = makeStyles((theme:Theme) => ({
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   },
+  link: {
+    underline: 'none',
+    color: 'inherit'
+  }
 }));
 
-export default function ButtonAppBar() {
+export default function Navbar() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
@@ -80,7 +86,9 @@ export default function ButtonAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography color="secondary" variant="h3" className={classes.title}>
-            RubDuk
+            <Link href="/" underline="none" className={classes.link}>
+              {'RubDuk'}
+            </Link>
           </Typography>
         </Toolbar>
       </AppBar>
@@ -94,7 +102,9 @@ export default function ButtonAppBar() {
         classes={{paper: classes.drawerPaper,}}>
         <div className={classes.drawerHeader}>
             <Typography color="secondary" variant="h3" className={classes.title}>
-                RubDuk
+              <Link href="/" underline="none" className={classes.link}>
+                {'RubDuk'}
+              </Link>
             </Typography>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon color="secondary"  /> : <ChevronRightIcon color="secondary" />}
@@ -102,10 +112,30 @@ export default function ButtonAppBar() {
         </div>
         <Divider />
         <List>
-          {<ListItem button key={'Profil'}>
-            <ListItemIcon><FaceIcon color="secondary" /></ListItemIcon>
-            <ListItemText ><Typography color="secondary">Profil</Typography></ListItemText>
-          </ListItem>}
+            <ListItem button key={'Profile'}>
+              <ListItemIcon>
+                <FaceIcon color="secondary" />
+                </ListItemIcon>
+              <ListItemText>
+                <Typography color="secondary">
+                  <Link href="/Profile" underline="none" className={classes.link}>
+                    {'Profile'}
+                  </Link>
+                </Typography>
+              </ListItemText>
+            </ListItem>
+            <ListItem button key={'Feed'}>
+              <ListItemIcon>
+                <DynamicFeedIcon color="secondary" />
+                </ListItemIcon>
+              <ListItemText>
+                <Typography color="secondary">
+                  <Link href="/Feed" underline="none" className={classes.link}>
+                    {'Feed'}
+                  </Link>
+                </Typography>
+              </ListItemText>
+            </ListItem>
         </List>
       </Drawer>
     </div>

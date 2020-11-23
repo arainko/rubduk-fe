@@ -1,11 +1,20 @@
 import React from 'react';
-import {Button} from '@material-ui/core'
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import LoginPage from '../LoginPage/LoginPage';
+import UserProfilePage from '../UserProfilePage/UserProfilePage';
+import NotFoundErrorPage from '../NotFoundErrorPage/NotFoundErrorPage'
 import './App.css';
+import FeedPage from '../FeedPage/FeedPage';
 
-function App() {
+export default function App() {
   return (
-    <Button variant="contained">Button</Button>
+    <Router>
+      <Switch>
+        <Route path="/" component={LoginPage} exact />
+        <Route path="/profile" component={UserProfilePage} />
+        <Route path="/feed" component={FeedPage} />
+        <Route component={NotFoundErrorPage} />
+      </Switch>
+    </Router>
   );
 }
-
-export default App;

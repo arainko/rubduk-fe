@@ -8,7 +8,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import './CommentsModal.css'
 import { makeStyles } from '@material-ui/core/styles';
 import theme from '../../theme';
-import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
     button: {
