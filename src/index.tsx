@@ -7,11 +7,6 @@ import theme from './theme';
 import * as serviceWorker from './serviceWorker';
 import App from './Components/App/App';
 
-
-const responseGoogle = (response: any) => {
-    console.log(response.tokenId);
-}
-
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     <CssBaseline />
