@@ -8,6 +8,15 @@ import theme from './theme';
 import * as serviceWorker from './serviceWorker';
 import UserProfile from './Components/UserProfile/UserProfile';
 
+import { useGoogleLogin } from 'react-google-login'
+import { GoogleLogin } from 'react-google-login';
+import GoogleAuthButton from './Components/GoogleAuthButton/GoogleAuthButton';
+
+
+const responseGoogle = (response: any) => {
+    console.log(response.tokenId);
+}
+
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     <CssBaseline />
@@ -20,6 +29,7 @@ ReactDOM.render(
   <ThemeProvider theme={theme}>
     <CssBaseline />
     <UserProfile />
+    <GoogleAuthButton />
   </ThemeProvider>,
   document.getElementById('user-info'),
 );
