@@ -20,7 +20,7 @@ interface PostAreaProps {
     userLastName: string
 }
 
-export default function PostArea(props: PostAreaProps) {
+const PostArea = (props: PostAreaProps) => {
     const classes = useStyles();
     
     const [posts, setPosts] = useState<any[]>([]);
@@ -40,3 +40,5 @@ export default function PostArea(props: PostAreaProps) {
         </Paper>
     )
 }
+
+export default PostArea;

@@ -4,7 +4,7 @@ import React from "react";
 import theme from "../../../theme";
 import GoogleAuthButton from "../../GoogleAuthButton/GoogleAuthButton";
 
-export default function LoginPage() {
+const LoginPage = () => {
     return (
     <ThemeProvider theme={theme}>
         <CssBaseline />
@@ -12,3 +12,5 @@ export default function LoginPage() {
     </ThemeProvider>
     )
 }
+
+export default LoginPage; 

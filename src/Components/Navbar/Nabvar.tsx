@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme:Theme) => ({
   }
 }));
 
-export default function Navbar() {
+const Navbar = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
@@ -141,3 +141,5 @@ export default function Navbar() {
     </div>
   );
 }
+
+export default Navbar;

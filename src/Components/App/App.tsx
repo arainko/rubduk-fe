@@ -6,7 +6,7 @@ import NotFoundErrorPage from '../Pages/NotFoundErrorPage/NotFoundErrorPage'
 import './App.css';
 import FeedPage from '../Pages/FeedPage/FeedPage';
 
-export default function App() {
+const App = () => {
   return (
     <Router>
       <Switch>
@@ -18,3 +18,5 @@ export default function App() {
     </Router>
   );
 }
+
+export default App

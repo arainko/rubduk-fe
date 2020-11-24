@@ -7,7 +7,7 @@ import ProfileCard from '../ProfleCard/ProfileCard';
 import PostArea from '../PostArea/PostArea';
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 
-export default function UserProfile() {
+const UserProfile = () => {
     
     const [user, setUser] = useState<any>([]);
 
@@ -32,3 +32,5 @@ export default function UserProfile() {
         </div>
     )
 }
+
+export default UserProfile;

@@ -26,7 +26,7 @@ interface CommentsModalProps {
     userId: number
 }
 
-export default function CommentsModal() {
+const CommentsModal = () => {
 
     const classes = useStyles();
 
@@ -75,3 +75,5 @@ export default function CommentsModal() {
         </div>
     );
 }
+
+export default CommentsModal;

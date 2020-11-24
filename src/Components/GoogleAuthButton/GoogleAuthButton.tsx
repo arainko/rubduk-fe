@@ -7,7 +7,7 @@ interface RootState {
     isLogged: boolean
 }
 
-export default function GoogleAuthButton() {
+const GoogleAuthButton = () => {
 
     const responseGoogle = (response: any) => {
         console.log(response.tokenId);
@@ -31,3 +31,5 @@ export default function GoogleAuthButton() {
         </div>
     );
 };
+
+export default GoogleAuthButton;

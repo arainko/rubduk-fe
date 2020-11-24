@@ -4,7 +4,7 @@ import React from "react";
 import theme from "../../../theme";
 import Navbar from "../../Navbar/Nabvar"
 
-export default function FeedPage() {
+const FeedPage = () => {
     return (
     <ThemeProvider theme={theme}>
         <CssBaseline />
@@ -12,3 +12,5 @@ export default function FeedPage() {
     </ThemeProvider>
     )
 }
+
+export default FeedPage;
