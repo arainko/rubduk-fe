@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import LoginPage from '../LoginPage/LoginPage';
-import UserProfilePage from '../UserProfilePage/UserProfilePage';
-import NotFoundErrorPage from '../NotFoundErrorPage/NotFoundErrorPage'
+import LoginPage from '../Pages/LoginPage/LoginPage';
+import UserProfilePage from '../Pages/UserProfilePage/UserProfilePage';
+import NotFoundErrorPage from '../Pages/NotFoundErrorPage/NotFoundErrorPage'
 import './App.css';
-import FeedPage from '../FeedPage/FeedPage';
+import FeedPage from '../Pages/FeedPage/FeedPage';
 
 export default function App() {
   return (

@@ -1,8 +1,8 @@
 import { CssBaseline, ThemeProvider, Typography } from '@material-ui/core';
 import React from 'react';
-import theme from '../../theme';
+import theme from '../../../theme';
 import Grid from '@material-ui/core/Grid';
-import Navbar from '../Navbar/Nabvar';
+import Navbar from '../../Navbar/Nabvar';
 import Link from '@material-ui/core/Link/Link';
 
 export default function App() {

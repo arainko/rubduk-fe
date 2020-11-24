@@ -1,4 +1,5 @@
 import React from 'react';
+import {useSelector} from 'react-redux';
 import GoogleLogin from 'react-google-login';
 
 const responseGoogle = (response: any) => {
