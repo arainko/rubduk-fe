@@ -33,7 +33,7 @@ interface PostProps {
     dateAdded: Date
 }
 
-export default function Post(props: PostProps) {
+const Post = (props: PostProps) => {
 
     const classes = useStyles();
 
@@ -67,3 +67,5 @@ export default function Post(props: PostProps) {
         </Card>
     );
 }
+
+export default Post;

@@ -3,35 +3,27 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
-import Navbar from './Components/Navbar/Nabvar';
 import theme from './theme';
 import * as serviceWorker from './serviceWorker';
-import UserProfile from './Components/UserProfile/UserProfile';
+import App from './Components/App/App';
+import allReducers from './Components/Redux/Reducers'
+import { createStore } from 'redux';
+import { Provider } from 'react-redux'
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-import { useGoogleLogin } from 'react-google-login'
-import { GoogleLogin } from 'react-google-login';
-import GoogleAuthButton from './Components/GoogleAuthButton/GoogleAuthButton';
-
-
-const responseGoogle = (response: any) => {
-    console.log(response.tokenId);
-}
-
-ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <Navbar />
-  </ThemeProvider>,
-  document.getElementById('navbar'),
-);
+const store = createStore(
+    allReducers, 
+    composeWithDevTools()
+  );
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     <CssBaseline />
-    <UserProfile />
-    <GoogleAuthButton />
+      <Provider store={store}>
+        <App />
+      </Provider>
   </ThemeProvider>,
-  document.getElementById('user-info'),
+  document.getElementById('root'),
 );
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

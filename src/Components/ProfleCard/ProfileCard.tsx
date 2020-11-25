@@ -26,7 +26,7 @@ interface ProfileCardProps {
     createdOn: Date
 }
 
-export default function ProfileCard(props: ProfileCardProps) {
+const ProfileCard = (props: ProfileCardProps) => {
     const classes = useStyles();
 
     return (
@@ -43,3 +43,5 @@ export default function ProfileCard(props: ProfileCardProps) {
         </Card>
     );
 }
+
+export default ProfileCard; 
