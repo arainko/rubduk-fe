@@ -6,18 +6,22 @@ import { UserAPI } from '../../Api/UserAPI';
 import ProfileCard from '../ProfleCard/ProfileCard';
 import PostArea from '../PostArea/PostArea';
 
-const UserProfile = () => {
+interface UserProfileProps {
+    userId: number
+}
+
+const UserProfile = (props: UserProfileProps) => {
     
     const [user, setUser] = useState<any>([]);
 
     useEffect(() => {
         trackPromise(
-            UserAPI.fetchUserWithId(2)
+            UserAPI.fetchUserWithId(props.userId)
             .then((downloadedUser) => {
                 setUser(downloadedUser)
             })
         )
-    }, []);
+    }, [props.userId]);
 
     return (
         <div id={"user-info"}>
