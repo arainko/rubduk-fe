@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import theme from '../../theme'
 import { CardHeader } from '@material-ui/core';
 import CommentsModal from '../CommentsModal/CommentsModal';
-
 
 const useStyles = makeStyles({
     subheader: {
