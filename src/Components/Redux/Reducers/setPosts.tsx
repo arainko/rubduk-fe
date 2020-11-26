@@ -1,12 +1,10 @@
-import { PostAPI } from '../../../Api/PostAPI'
-
-const isLoggedReducer = (state = [], action: any) => {
+const setPostsReducer = (state = [], action: any) => {
     switch(action.type) {
         case 'SET_POSTS':
             return action.payload;
         default:
-            return [0];
+            return state;
     }
 };
 
-export default isLoggedReducer
+export default setPostsReducer

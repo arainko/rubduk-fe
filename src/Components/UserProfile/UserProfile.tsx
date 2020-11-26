@@ -13,7 +13,7 @@ const UserProfile = () => {
 
     useEffect(() => {
         trackPromise(
-            UserAPI.fetchUserWithId(1)
+            UserAPI.fetchUserWithId(2)
             .then((downloadedUser) => {
                 setUser(downloadedUser)
             })
@@ -28,7 +28,6 @@ const UserProfile = () => {
             <div id={"post-area"}>
                 {<PostArea userId={user.id} userName={user.name} userLastName={user.lastName}/>}
             </div>
-            <LoadingSpinner/>
         </div>
     )
 }
