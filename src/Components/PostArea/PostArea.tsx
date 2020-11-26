@@ -48,7 +48,6 @@ const PostArea = (props: PostAreaProps) => {
             .fetchPostsByUserId(props.userId)
             .then((data) =>
                 {
-                    console.log(data)
                     dispatch(setPosts(data))
                 }
             ))

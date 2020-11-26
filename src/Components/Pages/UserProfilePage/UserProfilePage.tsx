@@ -14,7 +14,6 @@ export default function UserProfilePage({ match } : RouteComponentProps<RouteInf
 
     const { params } = match;
     const userId = +params.userId;
-    console.log("test " + params.userId)
 
     return (
     <ThemeProvider theme={theme}>
