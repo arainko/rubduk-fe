@@ -6,10 +6,10 @@ import GoogleAuthButton from "../../GoogleAuthButton/GoogleAuthButton";
 
 const LoginPage = () => {
     return (
-    <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <GoogleAuthButton/>
-    </ThemeProvider>
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <GoogleAuthButton/>
+        </ThemeProvider>
     )
 }
 
