@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { UserAPI } from '../../Api/UserAPI';
 import ProfileCard from '../ProfleCard/ProfileCard';
 import PostArea from '../PostArea/PostArea';
-import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 
 const UserProfile = () => {
     
