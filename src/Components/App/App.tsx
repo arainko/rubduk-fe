@@ -10,9 +10,9 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/" component={LoginPage} exact />
-        <Route path="/profile" component={UserProfilePage} />
-        <Route path="/feed" component={FeedPage} />
+        <Route path='/' component={LoginPage} exact />
+        <Route path='/profile/user=:userId' component={UserProfilePage} />
+        <Route path='/feed' component={FeedPage} />
         <Route component={NotFoundErrorPage} />
       </Switch>
     </Router>

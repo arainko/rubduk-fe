@@ -10,7 +10,6 @@ import theme from '../../theme'
 import { CardHeader } from '@material-ui/core';
 import CommentsModal from '../CommentsModal/CommentsModal';
 
-
 const useStyles = makeStyles({
     subheader: {
         color: theme.palette.primary.contrastText
