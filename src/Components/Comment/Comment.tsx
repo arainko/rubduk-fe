@@ -22,11 +22,8 @@ const useStyles = makeStyles({
 });
 
 interface CommentProps {
-    userId: number,
-    userName: string,
-    userLastName: string,
+    commentId: number,
     contents: string,
-    dateAdded: Date
 }
 
 const Comment = (props: CommentProps) => {
@@ -34,8 +31,8 @@ const Comment = (props: CommentProps) => {
     return (
         <Paper className={classes.whole} text-align="justify">
             <p className={classes.commentOwner}>
-                <FaceIcon/>{props.userName} {props.userLastName}
-                <span title="date"> {props.dateAdded}</span>
+                <FaceIcon/> Placeholder Names
+                <span title="date">00.00.0000</span>
             </p>
             <Typography className={classes.comment} >{props.contents}</Typography>
         </Paper>

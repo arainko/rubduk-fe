@@ -1,4 +1,4 @@
-const setPostsReducer = (state = [], action: any) => {
+const setPostsReducer = (state = null, action: any) => {
     switch(action.type) {
         case 'SET_POSTS':
             return action.payload;

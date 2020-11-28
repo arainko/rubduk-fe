@@ -32,3 +32,31 @@ export const userLoaded = () => {
         payload: true
     }
 }
+
+export const setComments = (comments) => {
+    return {
+        type: 'SET_COMMENTS',
+        payload: comments
+    }
+}
+
+export const resetComments = () => {
+    return {
+        type: 'RESET_COMMENTS',
+        payload: null
+    }
+}
+
+export const commentsLoaded = () => {
+    return {
+        type: 'COMMENTS_LOADED',
+        payload: null
+    }
+}
+
+export const commentsNotLoaded = () => {
+    return {
+        type: 'COMMENTS_NOT_LOADED',
+        payload: null
+    }
+}
