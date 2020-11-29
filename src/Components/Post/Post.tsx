@@ -25,6 +25,7 @@ const useStyles = makeStyles({
 });
 
 interface PostProps {
+    postId: number,
     userId: number,
     userName: string,
     userLastName: string,
@@ -58,7 +59,7 @@ const Post = (props: PostProps) => {
             <Button size="small" variant="contained" className={classes.button}>
                 Like
             </Button>
-            <CommentsModal/>
+            <CommentsModal postId={props.postId}/>
             <Button size="small" variant="contained" className={classes.button}>
                 Share
             </Button>

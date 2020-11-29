@@ -4,10 +4,10 @@ import { Paper, Typography } from '@material-ui/core';
 import Post from '../Post/Post'
 import theme from '../../theme'
 import { useEffect } from 'react';
-import { trackPromise } from 'react-promise-tracker';
 import { PostAPI } from '../../Api/PostAPI'
 import { useDispatch, useSelector } from 'react-redux';
-import { setPosts } from '../Redux/Actions';
+import { setPosts, profilePostsLoaded } from '../Redux/Actions';
+import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 
 const useStyles = makeStyles({
     card: {
@@ -25,6 +25,7 @@ interface PostAreaProps {
 }
 
 interface PostProps {
+    id: number,
     userId: number,
     userName: string,
     userLastName: string,
@@ -34,7 +35,7 @@ interface PostProps {
 
 interface RootState {
     posts: Array<PostProps>
-    // TODO posts interface
+    isSpinnerInProfilePosts: Boolean
 }
 
 const PostArea = (props: PostAreaProps) => {
@@ -43,23 +44,31 @@ const PostArea = (props: PostAreaProps) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        trackPromise(
             PostAPI
             .fetchPostsByUserId(props.userId)
             .then((data) =>
                 {
                     dispatch(setPosts(data))
-                }
-            ))
+                    dispatch(profilePostsLoaded())
+                })
     }, [props.userId]);
 
     const posts = useSelector((state: RootState) => state.posts);
+    const isSpinnerVisible = useSelector((state: RootState) => state.isSpinnerInProfilePosts);
+
+    const showPosts = (() => {
+        if (posts.length === 0) {
+            return <Typography className={classes.noPosts}>No posts, write Your first!</Typography>
+        } else {
+            return posts.map(post => <Post postId={post.id} userId={post.userId} contents={post.contents} dateAdded={post.dateAdded} userLastName={props.userLastName} userName={props.userName}/>)
+        }
+    })
 
     return (
         <Paper variant="outlined" className={classes.card}>
-            {posts.length === 0 
-            ? <Typography className={classes.noPosts}>No posts, write Your first!</Typography>
-            : posts.map(post => <Post userId={post.userId} contents={post.contents} dateAdded={post.dateAdded} userLastName={props.userLastName} userName={props.userName}/>)}
+            {isSpinnerVisible
+            ? <LoadingSpinner/>
+            : showPosts()}
         </Paper>
     )
 }

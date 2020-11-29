@@ -1,10 +1,10 @@
-const setPostsReducer = (state = null, action: any) => {
+const setUserReducer = (state = null, action: any) => {
     switch(action.type) {
-        case 'SET_POSTS':
+        case 'SET_USER':
             return action.payload;
         default:
             return state;
     }
 };
 
-export default setPostsReducer
+export default setUserReducer

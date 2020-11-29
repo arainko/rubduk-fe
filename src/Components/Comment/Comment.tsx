@@ -4,7 +4,6 @@ import theme from '../../theme';
 import FaceIcon from '@material-ui/icons/Face'
 import {Paper} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
-import Post from "../Post/Post";
 
 const useStyles = makeStyles({
     comment: {
@@ -21,20 +20,19 @@ const useStyles = makeStyles({
         margin:5,
     }
 });
+
 interface CommentProps {
-    userId: number,
-    userName: string,
-    userLastName: string,
+    commentId: number,
     contents: string,
-    dateAdded: Date
 }
+
 const Comment = (props: CommentProps) => {
     const classes = useStyles();
     return (
         <Paper className={classes.whole} text-align="justify">
             <p className={classes.commentOwner}>
-                <FaceIcon/>{props.userName} {props.userLastName}
-                <span title="date"> {props.dateAdded}</span>
+                <FaceIcon/> Placeholder Names
+                <span title="date">00.00.0000</span>
             </p>
             <Typography className={classes.comment} >{props.contents}</Typography>
         </Paper>
