@@ -67,7 +67,7 @@ const UserProfile = (props: UserProfileProps) => {
                     dispatch(userLoaded())
                 }
             })
-    }, [props.userId]);
+    }, [props.userId, dispatch]);
 
     return (
         <div>

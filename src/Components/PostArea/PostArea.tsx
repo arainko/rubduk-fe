@@ -51,7 +51,7 @@ const PostArea = (props: PostAreaProps) => {
                     dispatch(setPosts(data))
                     dispatch(profilePostsLoaded())
                 })
-    }, [props.userId]);
+    }, [props.userId, dispatch]);
 
     const posts = useSelector((state: RootState) => state.posts);
     const isSpinnerVisible = useSelector((state: RootState) => state.isSpinnerInProfilePosts);
