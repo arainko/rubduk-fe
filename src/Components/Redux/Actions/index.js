@@ -60,3 +60,17 @@ export const commentsNotLoaded = () => {
         payload: null
     }
 }
+
+export const setGoogleTokenId = (token) => {
+    return {
+        type: 'SET_TOKEN',
+        payload: token
+    }
+}
+
+export const resetGoogleTokenId = () => {
+    return {
+        type: 'RESET_TOKEN',
+        payload: null
+    }
+}
