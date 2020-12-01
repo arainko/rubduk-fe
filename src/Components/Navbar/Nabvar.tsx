@@ -87,9 +87,7 @@ const Navbar = () => {
             <MenuIcon />
           </IconButton>
           <Typography color="secondary" variant="h3" className={classes.title}>
-            <MaterialLink href="/" underline="none" className={classes.link}>
-              {'RubDuk'}
-            </MaterialLink>
+            <MaterialLink to={'/Feed'} color="secondary" underline="none" component={Link}>RubDuk</MaterialLink>
           </Typography>
         </Toolbar>
       </AppBar>
@@ -103,9 +101,7 @@ const Navbar = () => {
         classes={{paper: classes.drawerPaper,}}>
         <div className={classes.drawerHeader}>
             <Typography color="secondary" variant="h3" className={classes.title}>
-              <MaterialLink href="/" underline="none" className={classes.link}>
-                {'RubDuk'}
-              </MaterialLink>
+              <MaterialLink to={'/Feed'} color="secondary" underline="none" component={Link}>RubDuk</MaterialLink>
             </Typography>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon color="secondary"  /> : <ChevronRightIcon color="secondary" />}
@@ -119,9 +115,8 @@ const Navbar = () => {
                 </ListItemIcon>
               <ListItemText>
                 <Typography color="secondary">
-                  <MaterialLink href="/Profile" underline="none" className={classes.link}>
-                    {'Profile'}
-                  </MaterialLink>
+                  <MaterialLink to={'/Profile/user=2'} color="secondary" underline="none" component={Link}>My profile</MaterialLink>
+                  {/* TODO Get user id from state for logged in */}
                 </Typography>
               </ListItemText>
             </ListItem>
@@ -131,12 +126,7 @@ const Navbar = () => {
                 </ListItemIcon>
               <ListItemText>
                 <Typography color="secondary">
-                  <Link to="/Feed">
-                    dupa
-                  </Link>
-                  {/* <MaterialLink underline="none" className={classes.link}>
-                    {'Feed'}
-                  </MaterialLink> */}
+                  <MaterialLink to={'/Feed'} color="secondary" underline="none" component={Link}>Feed</MaterialLink>
                 </Typography>
               </ListItemText>
             </ListItem>

@@ -2,6 +2,7 @@ import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import GoogleLogin from 'react-google-login';
 import { logIn, setGoogleTokenId }  from '../Redux/Actions';
+import { Link, Redirect } from 'react-router-dom';
 
 interface RootState {
     isLogged: boolean
@@ -10,11 +11,16 @@ interface RootState {
 const GoogleAuthButton = () => {
 
     const dispatch = useDispatch();
+    const redirect = () => {
+        return <Redirect to='/target' />;
+    }
 
     const onSuccessLogin = (response: any) => {
+        console.log(response);
         console.log(response.tokenId);
         dispatch(logIn())
         dispatch(setGoogleTokenId(response.tokenId))
+        redirect()
     }
 
     const onFailureLogin = (response: any) => {
@@ -32,7 +38,7 @@ const GoogleAuthButton = () => {
                 onFailure={onFailureLogin}
                 cookiePolicy={'single_host_origin'}
             />
-            {isLogged ? <h3>You are now logged in</h3> : <h3>Click to log in</h3>}
+            {isLogged ? <Redirect to="/Feed"></Redirect> : <h3>Click to log in</h3>}
         </div>
     );
 };
