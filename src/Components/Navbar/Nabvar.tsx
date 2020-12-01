@@ -16,7 +16,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import FaceIcon from '@material-ui/icons/Face'
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
-import Link from '@material-ui/core/Link';
+import { Link as MaterialLink } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme:Theme) => ({
   root: {
@@ -86,9 +87,9 @@ const Navbar = () => {
             <MenuIcon />
           </IconButton>
           <Typography color="secondary" variant="h3" className={classes.title}>
-            <Link href="/" underline="none" className={classes.link}>
+            <MaterialLink href="/" underline="none" className={classes.link}>
               {'RubDuk'}
-            </Link>
+            </MaterialLink>
           </Typography>
         </Toolbar>
       </AppBar>
@@ -102,9 +103,9 @@ const Navbar = () => {
         classes={{paper: classes.drawerPaper,}}>
         <div className={classes.drawerHeader}>
             <Typography color="secondary" variant="h3" className={classes.title}>
-              <Link href="/" underline="none" className={classes.link}>
+              <MaterialLink href="/" underline="none" className={classes.link}>
                 {'RubDuk'}
-              </Link>
+              </MaterialLink>
             </Typography>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon color="secondary"  /> : <ChevronRightIcon color="secondary" />}
@@ -118,9 +119,9 @@ const Navbar = () => {
                 </ListItemIcon>
               <ListItemText>
                 <Typography color="secondary">
-                  <Link href="/Profile" underline="none" className={classes.link}>
+                  <MaterialLink href="/Profile" underline="none" className={classes.link}>
                     {'Profile'}
-                  </Link>
+                  </MaterialLink>
                 </Typography>
               </ListItemText>
             </ListItem>
@@ -130,9 +131,12 @@ const Navbar = () => {
                 </ListItemIcon>
               <ListItemText>
                 <Typography color="secondary">
-                  <Link href="/Feed" underline="none" className={classes.link}>
-                    {'Feed'}
+                  <Link to="/Feed">
+                    dupa
                   </Link>
+                  {/* <MaterialLink underline="none" className={classes.link}>
+                    {'Feed'}
+                  </MaterialLink> */}
                 </Typography>
               </ListItemText>
             </ListItem>
