@@ -11,6 +11,13 @@ const fetchPostsByUserId = (userId: number) => axios.get( config.apiURL + 'posts
     return res.data.entities;
 })
 
+// TODO again, interfaces, press ctrl+f "any" to build interfaces for other types waiting 
+
+const postsPostByUserId = (post: any) => axios.post(config.apiURL + 'posts')
+    .then(res => {
+    return res.data;
+})
+
 export const PostAPI = {
     fetchPosts, fetchPostsByUserId
 };

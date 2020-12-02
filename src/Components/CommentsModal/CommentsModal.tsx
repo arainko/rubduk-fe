@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -68,6 +68,24 @@ const CommentsModal = (props: CommentsModalProps) => {
         dispatch(commentsNotLoaded())
     };
 
+    const reloadComments = () => {
+        dispatch(commentsNotLoaded())
+        CommentsAPI
+        .fetchCommentstsByPostId(props.postId)
+        .then((data) => {
+            dispatch(setComments(data))
+            dispatch(commentsLoaded())
+        })
+    }
+
+    const [commentValue, setCommentValue] = useState('') 
+
+    const handleCommentPost = () => {
+        console.log(commentValue)
+        //TODO call api to post comment, pass required args
+        reloadComments()
+    }
+
     const dispatch = useDispatch();
 
     const showComments = () => {
@@ -98,13 +116,17 @@ const CommentsModal = (props: CommentsModalProps) => {
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="name"
+                        id="comment-textfield"
                         label="Write your comment"
                         type="text"
                         multiline
                         rows={3}
                         fullWidth
                         color="secondary"
+                        value={commentValue}
+                        onChange={(e) => {
+                            setCommentValue(e.target.value)
+                        }}
                         InputProps={{
                             className: classes.inputText
                         }}
@@ -117,7 +139,7 @@ const CommentsModal = (props: CommentsModalProps) => {
                     <Button onClick={handleClose} className={classes.commentButton}>
                         Cancel
                     </Button>
-                    <Button onClick={handleClose} className={classes.commentButton}>
+                    <Button onClick={handleCommentPost} className={classes.commentButton}>
                         Post Comment
                     </Button>
                 </DialogActions>
