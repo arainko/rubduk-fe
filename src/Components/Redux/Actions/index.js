@@ -5,17 +5,12 @@ export const logIn = () => {
     }
 }
 
+// posts
+
 export const setPosts = (posts) => {
     return {
         type: 'SET_POSTS',
         payload: posts
-    }
-}
-
-export const setUser = (user) => {
-    return {
-        type: 'SET_USER',
-        payload: user
     }
 }
 
@@ -26,12 +21,23 @@ export const profilePostsLoaded = () => {
     }
 }
 
-export const userLoaded = () => {
+// user profile
+
+export const setProfileUser = (user) => {
     return {
-        type: 'USER_LOADED',
+        type: 'SET_PROFILE_USER',
+        payload: user
+    }
+}
+
+export const profileUserLoaded = () => {
+    return {
+        type: 'PROFILE_USER_LOADED',
         payload: true
     }
 }
+
+// comments
 
 export const setComments = (comments) => {
     return {
@@ -61,6 +67,8 @@ export const commentsNotLoaded = () => {
     }
 }
 
+// google token
+
 export const setGoogleTokenId = (token) => {
     return {
         type: 'SET_TOKEN',
@@ -71,6 +79,22 @@ export const setGoogleTokenId = (token) => {
 export const resetGoogleTokenId = () => {
     return {
         type: 'RESET_TOKEN',
+        payload: null
+    }
+}
+
+// session user
+
+export const setSessionUser = (user) => {
+    return {
+        type: 'SET_SESSION_USER',
+        payload: user
+    }
+}
+
+export const resetSessionUser = () => {
+    return {
+        type: 'RESET_SESSION_USER',
         payload: null
     }
 }

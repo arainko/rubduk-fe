@@ -1,8 +1,9 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import GoogleLogin from 'react-google-login';
-import { logIn, setGoogleTokenId }  from '../Redux/Actions';
-import { Link, Redirect } from 'react-router-dom';
+import { logIn, setGoogleTokenId, setSessionUser }  from '../Redux/Actions';
+import { Redirect } from 'react-router-dom';
+import { UserAPI } from '../../Api/UserAPI'
 
 interface RootState {
     isLogged: boolean
@@ -16,10 +17,13 @@ const GoogleAuthButton = () => {
     }
 
     const onSuccessLogin = (response: any) => {
-        console.log(response);
-        console.log(response.tokenId);
         dispatch(logIn())
         dispatch(setGoogleTokenId(response.tokenId))
+        UserAPI
+            .registerNewUser(response.tokenId)
+            .then((data) => {
+                dispatch(setSessionUser(data))
+            })
         redirect()
     }
 
