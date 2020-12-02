@@ -18,6 +18,7 @@ import FaceIcon from '@material-ui/icons/Face'
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import { Link as MaterialLink } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme:Theme) => ({
   root: {
@@ -65,6 +66,10 @@ const useStyles = makeStyles((theme:Theme) => ({
   }
 }));
 
+interface RootState {
+  sessionUser: any
+}
+
 const Navbar = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -76,6 +81,16 @@ const Navbar = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const sessionUser = useSelector((state: RootState) => state.sessionUser);
+
+  const getSessionUserOrRedirect = () => {
+    if (sessionUser === null) {
+      return ''
+    } else {
+      return sessionUser.id
+    }
+  }
 
   return (
     <div className={classes.root}>
@@ -115,7 +130,7 @@ const Navbar = () => {
                 </ListItemIcon>
               <ListItemText>
                 <Typography color="secondary">
-                  <MaterialLink to={'/Profile/user=2'} color="secondary" underline="none" component={Link}>My profile</MaterialLink>
+                  <MaterialLink to={'/Profile/user=' + getSessionUserOrRedirect()} color="secondary" underline="none" component={Link}>My profile</MaterialLink>
                   {/* TODO Get user id from state for logged in */}
                 </Typography>
               </ListItemText>
