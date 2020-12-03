@@ -16,7 +16,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import FaceIcon from '@material-ui/icons/Face'
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
-import Link from '@material-ui/core/Link';
+import { Link as MaterialLink } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme:Theme) => ({
   root: {
@@ -64,6 +66,10 @@ const useStyles = makeStyles((theme:Theme) => ({
   }
 }));
 
+interface RootState {
+  sessionUser: any
+}
+
 const Navbar = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -76,6 +82,16 @@ const Navbar = () => {
     setOpen(false);
   };
 
+  const sessionUser = useSelector((state: RootState) => state.sessionUser);
+
+  const getSessionUserOrRedirect = () => {
+    if (sessionUser === null) {
+      return ''
+    } else {
+      return sessionUser.id
+    }
+  }
+
   return (
     <div className={classes.root}>
       <AppBar color="primary"position="static" className={clsx(classes.appBar, {
@@ -86,9 +102,7 @@ const Navbar = () => {
             <MenuIcon />
           </IconButton>
           <Typography color="secondary" variant="h3" className={classes.title}>
-            <Link href="/" underline="none" className={classes.link}>
-              {'RubDuk'}
-            </Link>
+            <MaterialLink to={'/Feed'} color="secondary" underline="none" component={Link}>RubDuk</MaterialLink>
           </Typography>
         </Toolbar>
       </AppBar>
@@ -102,9 +116,7 @@ const Navbar = () => {
         classes={{paper: classes.drawerPaper,}}>
         <div className={classes.drawerHeader}>
             <Typography color="secondary" variant="h3" className={classes.title}>
-              <Link href="/" underline="none" className={classes.link}>
-                {'RubDuk'}
-              </Link>
+              <MaterialLink to={'/Feed'} color="secondary" underline="none" component={Link}>RubDuk</MaterialLink>
             </Typography>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon color="secondary"  /> : <ChevronRightIcon color="secondary" />}
@@ -118,9 +130,8 @@ const Navbar = () => {
                 </ListItemIcon>
               <ListItemText>
                 <Typography color="secondary">
-                  <Link href="/Profile" underline="none" className={classes.link}>
-                    {'Profile'}
-                  </Link>
+                  <MaterialLink to={'/Profile/user=' + getSessionUserOrRedirect()} color="secondary" underline="none" component={Link}>My profile</MaterialLink>
+                  {/* TODO Get user id from state for logged in */}
                 </Typography>
               </ListItemText>
             </ListItem>
@@ -130,9 +141,7 @@ const Navbar = () => {
                 </ListItemIcon>
               <ListItemText>
                 <Typography color="secondary">
-                  <Link href="/Feed" underline="none" className={classes.link}>
-                    {'Feed'}
-                  </Link>
+                  <MaterialLink to={'/Feed'} color="secondary" underline="none" component={Link}>Feed</MaterialLink>
                 </Typography>
               </ListItemText>
             </ListItem>

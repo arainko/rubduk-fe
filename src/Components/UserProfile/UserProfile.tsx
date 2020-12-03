@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ProfileCard from '../ProfleCard/ProfileCard';
 import PostArea from '../PostArea/PostArea';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser, userLoaded } from '../Redux/Actions';
+import { setProfileUser, profileUserLoaded } from '../Redux/Actions';
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 import { Typography } from '@material-ui/core';
 import theme from '../../theme';
@@ -15,7 +15,7 @@ interface UserProfileProps {
 }
 
 interface RootState {
-    user: any
+    profileUser: any
     isSpinnerInUserPage: Boolean
     //TODO make interface for user
 }
@@ -33,11 +33,11 @@ const UserProfile = (props: UserProfileProps) => {
 
     const dispatch = useDispatch();
     const classes = useStyles();
-    const user = useSelector((state: RootState) => state.user);
+    const profileUser = useSelector((state: RootState) => state.profileUser);
     const isSpinnerVisible = useSelector((state: RootState) => state.isSpinnerInUserPage);
 
     const showUser = () => {
-            if (user === null) {
+            if (profileUser === null) {
                 return (
                     <div className={classes.errorWrapper}>
                         <Typography variant="h2" className={classes.error}>Quack! User not found.</Typography>
@@ -46,10 +46,10 @@ const UserProfile = (props: UserProfileProps) => {
             } else {
                 return (<div id={"user-info"}>
                 <div id={"profile-card"}>
-                    {<ProfileCard name={user.name} lastName={user.lastName} createdOn={user.createdOn}/>}
+                    {<ProfileCard name={profileUser.name} lastName={profileUser.lastName} createdOn={profileUser.createdOn}/>}
                 </div>
                 <div id={"post-area"}>
-                    {<PostArea userId={user.id} userName={user.name} userLastName={user.lastName}/>}
+                    {<PostArea userId={profileUser.id} userName={profileUser.name} userLastName={profileUser.lastName}/>}
                 </div>
             </div>)
             }
@@ -58,16 +58,22 @@ const UserProfile = (props: UserProfileProps) => {
     useEffect(() => {
             UserAPI.fetchUserWithId(props.userId)
             .then((downloadedUser) => {
-                dispatch(setUser(downloadedUser))
-                dispatch(userLoaded())
+                dispatch(setProfileUser(downloadedUser))
+                dispatch(profileUserLoaded())
             })
             .catch(err => {
-                if (err.response.status === 404) {
+                if (err.response === undefined) {
+                    console.log("Can't connect");
+                    dispatch(profileUserLoaded())
+                } else if (err.response.status === 404) {
                     console.log("user not found");
-                    dispatch(userLoaded())
+                    dispatch(profileUserLoaded())
+                } else {
+                    console.log("user not found");
+                    dispatch(profileUserLoaded())
                 }
             })
-    }, [props.userId]);
+    }, [props.userId, dispatch]);
 
     return (
         <div>
