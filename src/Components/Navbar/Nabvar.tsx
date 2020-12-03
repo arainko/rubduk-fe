@@ -18,7 +18,8 @@ import FaceIcon from '@material-ui/icons/Face'
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import { Link as MaterialLink } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetGoogleTokenId, resetSessionUser } from '../Redux/Actions';
 
 const useStyles = makeStyles((theme:Theme) => ({
   root: {
@@ -82,6 +83,7 @@ const Navbar = () => {
     setOpen(false);
   };
 
+  const dispatch = useDispatch();
   const sessionUser = useSelector((state: RootState) => state.sessionUser);
 
   const getSessionUserOrRedirect = () => {
@@ -142,6 +144,25 @@ const Navbar = () => {
               <ListItemText>
                 <Typography color="secondary">
                   <MaterialLink to={'/Feed'} color="secondary" underline="none" component={Link}>Feed</MaterialLink>
+                </Typography>
+              </ListItemText>
+            </ListItem>
+            <ListItem button key={'Logout'}>
+              <ListItemIcon>
+                <DynamicFeedIcon color="secondary" />
+                </ListItemIcon>
+              <ListItemText>
+                <Typography color="secondary">
+                  <MaterialLink to={'/'} 
+                  color="secondary" 
+                  underline="none" 
+                  component={Link} 
+                  onClick={() => {
+                    dispatch(resetGoogleTokenId())
+                    dispatch(resetSessionUser())
+                    //TODO reset whole state
+                  }}>
+                    Log out</MaterialLink>
                 </Typography>
               </ListItemText>
             </ListItem>

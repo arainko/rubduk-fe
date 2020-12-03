@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -43,6 +43,8 @@ interface CommentsModalProps {
 interface RootState {
     comments: Array<any>
     isSpinnerInComments: Boolean
+    sessionUser: any
+    GoogleTokenId: String
     // TODO make comments interface
 }
 
@@ -68,6 +70,29 @@ const CommentsModal = (props: CommentsModalProps) => {
         dispatch(commentsNotLoaded())
     };
 
+    const reloadComments = () => {
+        dispatch(commentsNotLoaded())
+        CommentsAPI
+        .fetchCommentstsByPostId(props.postId)
+        .then((data) => {
+            dispatch(setComments(data))
+            dispatch(commentsLoaded())
+        })
+    }
+
+    const [commentValue, setCommentValue] = useState('') 
+
+    const sessionUser = useSelector((state: RootState) => state.sessionUser);
+    const GoogleTokenId = useSelector((state: RootState) => state.GoogleTokenId);
+
+    const handleCommentPost = () => {
+        console.log(commentValue)
+        CommentsAPI
+            .postComentInPost(props.postId, sessionUser.id, commentValue, GoogleTokenId)
+        //TODO call api to post comment, pass required args
+        reloadComments()
+    }
+
     const dispatch = useDispatch();
 
     const showComments = () => {
@@ -76,7 +101,7 @@ const CommentsModal = (props: CommentsModalProps) => {
                 <Typography>No comments, be first!</Typography>
             </div>)
         } else {
-            return comments.map(comment => <Comment key={"comment" + comment.commentId} commentId={comment.commentId} contents={comment.contents}/>)
+            return comments.map(comment => <Comment key={"comment" + comment.id} commentId={comment.id} contents={comment.contents}/>)
         }
     }
 
@@ -90,21 +115,25 @@ const CommentsModal = (props: CommentsModalProps) => {
             </Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" disableBackdropClick fullWidth>
                 <DialogTitle id="form-dialog-title" className={classes.title}>Comments</DialogTitle>
-                {isSpinnerVisible
-                ? <LoadingSpinner/>
-                : showComments()
-                }
                 <DialogContent>
+                    {isSpinnerVisible
+                    ? <LoadingSpinner/>
+                    : showComments()
+                    }
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="name"
+                        id="comment-textfield"
                         label="Write your comment"
                         type="text"
                         multiline
                         rows={3}
                         fullWidth
                         color="secondary"
+                        value={commentValue}
+                        onChange={(e) => {
+                            setCommentValue(e.target.value)
+                        }}
                         InputProps={{
                             className: classes.inputText
                         }}
@@ -117,7 +146,7 @@ const CommentsModal = (props: CommentsModalProps) => {
                     <Button onClick={handleClose} className={classes.commentButton}>
                         Cancel
                     </Button>
-                    <Button onClick={handleClose} className={classes.commentButton}>
+                    <Button onClick={handleCommentPost} className={classes.commentButton}>
                         Post Comment
                     </Button>
                 </DialogActions>
