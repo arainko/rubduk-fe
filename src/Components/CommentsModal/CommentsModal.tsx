@@ -43,6 +43,8 @@ interface CommentsModalProps {
 interface RootState {
     comments: Array<any>
     isSpinnerInComments: Boolean
+    sessionUser: any
+    GoogleTokenId: String
     // TODO make comments interface
 }
 
@@ -80,8 +82,13 @@ const CommentsModal = (props: CommentsModalProps) => {
 
     const [commentValue, setCommentValue] = useState('') 
 
+    const sessionUser = useSelector((state: RootState) => state.sessionUser);
+    const GoogleTokenId = useSelector((state: RootState) => state.GoogleTokenId);
+
     const handleCommentPost = () => {
         console.log(commentValue)
+        CommentsAPI
+            .postComentInPost(props.postId, sessionUser.id, commentValue, GoogleTokenId)
         //TODO call api to post comment, pass required args
         reloadComments()
     }
@@ -94,7 +101,7 @@ const CommentsModal = (props: CommentsModalProps) => {
                 <Typography>No comments, be first!</Typography>
             </div>)
         } else {
-            return comments.map(comment => <Comment key={"comment" + comment.commentId} commentId={comment.commentId} contents={comment.contents}/>)
+            return comments.map(comment => <Comment key={"comment" + comment.id} commentId={comment.id} contents={comment.contents}/>)
         }
     }
 
@@ -108,11 +115,11 @@ const CommentsModal = (props: CommentsModalProps) => {
             </Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" disableBackdropClick fullWidth>
                 <DialogTitle id="form-dialog-title" className={classes.title}>Comments</DialogTitle>
-                {isSpinnerVisible
-                ? <LoadingSpinner/>
-                : showComments()
-                }
                 <DialogContent>
+                    {isSpinnerVisible
+                    ? <LoadingSpinner/>
+                    : showComments()
+                    }
                     <TextField
                         autoFocus
                         margin="dense"

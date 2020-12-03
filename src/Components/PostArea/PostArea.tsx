@@ -60,7 +60,7 @@ const PostArea = (props: PostAreaProps) => {
         if (posts.length === 0) {
             return <Typography className={classes.noPosts}>No posts, write Your first!</Typography>
         } else {
-            return posts.map(post => <Post postId={post.id} userId={post.userId} contents={post.contents} dateAdded={post.dateAdded} userLastName={props.userLastName} userName={props.userName}/>)
+            return posts.map(post => <Post key={'post' + post.id} postId={post.id} userId={post.userId} contents={post.contents} dateAdded={post.dateAdded} userLastName={props.userLastName} userName={props.userName}/>)
         }
     })
 
