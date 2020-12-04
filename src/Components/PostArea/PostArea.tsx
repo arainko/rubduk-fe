@@ -8,6 +8,7 @@ import { PostAPI } from '../../Api/PostAPI'
 import { useDispatch, useSelector } from 'react-redux';
 import { setPosts, profilePostsLoaded } from '../Redux/Actions';
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
+import PostWriter from '../PostWriter/PostWriter';
 
 const useStyles = makeStyles({
     card: {
@@ -43,18 +44,18 @@ const PostArea = (props: PostAreaProps) => {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
-            PostAPI
-            .fetchPostsByUserId(props.userId)
-            .then((data) =>
-                {
-                    dispatch(setPosts(data))
-                    dispatch(profilePostsLoaded())
-                })
-    }, [props.userId, dispatch]);
-
     const posts = useSelector((state: RootState) => state.posts);
     const isSpinnerVisible = useSelector((state: RootState) => state.isSpinnerInProfilePosts);
+
+    useEffect(() => {
+        PostAPI
+        .fetchPostsByUserId(props.userId)
+        .then((data) =>
+            {
+                dispatch(setPosts(data))
+                dispatch(profilePostsLoaded())
+            })
+    }, [props.userId, dispatch]);
 
     const showPosts = (() => {
         if (posts.length === 0) {
@@ -66,6 +67,9 @@ const PostArea = (props: PostAreaProps) => {
 
     return (
         <Paper variant="outlined" className={classes.card}>
+            {isSpinnerVisible
+            ? <div></div>
+            : <PostWriter/>}
             {isSpinnerVisible
             ? <LoadingSpinner/>
             : showPosts()}

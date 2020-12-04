@@ -86,10 +86,8 @@ const CommentsModal = (props: CommentsModalProps) => {
     const GoogleTokenId = useSelector((state: RootState) => state.GoogleTokenId);
 
     const handleCommentPost = () => {
-        console.log(commentValue)
         CommentsAPI
             .postComentInPost(props.postId, sessionUser.id, commentValue, GoogleTokenId)
-        //TODO call api to post comment, pass required args
         reloadComments()
     }
 
