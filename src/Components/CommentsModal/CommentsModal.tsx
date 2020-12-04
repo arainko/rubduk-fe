@@ -86,10 +86,8 @@ const CommentsModal = (props: CommentsModalProps) => {
     const GoogleTokenId = useSelector((state: RootState) => state.GoogleTokenId);
 
     const handleCommentPost = () => {
-        console.log(commentValue)
         CommentsAPI
             .postComentInPost(props.postId, sessionUser.id, commentValue, GoogleTokenId)
-        //TODO call api to post comment, pass required args
         reloadComments()
     }
 
@@ -101,7 +99,7 @@ const CommentsModal = (props: CommentsModalProps) => {
                 <Typography>No comments, be first!</Typography>
             </div>)
         } else {
-            return comments.map(comment => <Comment key={"comment" + comment.id} commentId={comment.id} contents={comment.contents}/>)
+            return comments.map(comment => <Comment key={"comment" + comment.id} dateAdded={comment.dateAdded} userName={comment.name} userLastName={comment.lastName} commentId={comment.id} contents={comment.contents}/>)
         }
     }
 
@@ -120,6 +118,7 @@ const CommentsModal = (props: CommentsModalProps) => {
                     ? <LoadingSpinner/>
                     : showComments()
                     }
+                    
                     <TextField
                         autoFocus
                         margin="dense"

@@ -13,11 +13,31 @@ const fetchPostsByUserId = (userId: number) => axios.get( config.apiURL + 'posts
 
 // TODO again, interfaces, press ctrl+f "any" to build interfaces for other types waiting 
 
-const postsPostByUserId = (post: any) => axios.post(config.apiURL + 'posts')
+const jsonify = (text: String) => {
+    return JSON.stringify({ contents: text })
+}
+
+const headerJsonConfiguration = (userId: number, authToken: String) => {
+    return {
+        headers: {
+            'User-id': userId,
+            'Authorization': authToken,
+            'content-type': 'application/json'
+        }
+    }
+}
+
+const postPost = (userId: number, contents: String, authTokenId: String) => {
+    axios.post(
+        config.apiURL + 'posts', 
+        jsonify(contents), 
+        headerJsonConfiguration(userId, authTokenId)
+        )
     .then(res => {
     return res.data;
 })
+}
 
 export const PostAPI = {
-    fetchPosts, fetchPostsByUserId
+    fetchPosts, fetchPostsByUserId, postPost
 };
