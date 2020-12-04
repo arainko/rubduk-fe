@@ -120,6 +120,7 @@ const CommentsModal = (props: CommentsModalProps) => {
                     ? <LoadingSpinner/>
                     : showComments()
                     }
+                    
                     <TextField
                         autoFocus
                         margin="dense"
