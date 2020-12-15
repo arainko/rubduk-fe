@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom'
+import { RootState } from '../../Interfaces/interfaces';
 
 interface ProtectedRouteProps {
     component: Component
-}
-
-interface RootState {
-    isLogged: boolean
 }
 
 const ProtectedRoute = (props: ProtectedRouteProps) => {

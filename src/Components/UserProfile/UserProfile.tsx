@@ -9,15 +9,10 @@ import { setProfileUser, profileUserLoaded } from '../Redux/Actions';
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 import { Typography } from '@material-ui/core';
 import theme from '../../theme';
+import { RootState } from '../../Interfaces/interfaces';
 
 interface UserProfileProps {
     userId: number
-}
-
-interface RootState {
-    profileUser: any
-    isSpinnerInUserPage: Boolean
-    //TODO make interface for user
 }
 
 const useStyles = makeStyles({

@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setPosts, profilePostsLoaded } from '../Redux/Actions';
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 import PostWriter from '../PostWriter/PostWriter';
+import { RootState } from '../../Interfaces/interfaces';
 
 const useStyles = makeStyles({
     card: {
@@ -32,11 +33,6 @@ interface PostProps {
     userLastName: string,
     contents: string,
     dateAdded: Date
-}
-
-interface RootState {
-    posts: Array<PostProps>
-    isSpinnerInProfilePosts: Boolean
 }
 
 const PostArea = (props: PostAreaProps) => {

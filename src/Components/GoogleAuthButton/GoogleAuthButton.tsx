@@ -4,10 +4,7 @@ import GoogleLogin from 'react-google-login';
 import { logIn, setGoogleTokenId, setSessionUser }  from '../Redux/Actions';
 import { Redirect } from 'react-router-dom';
 import { UserAPI } from '../../Api/UserAPI'
-
-interface RootState {
-    isLogged: boolean
-}
+import { RootState } from '../../Interfaces/interfaces';
 
 const GoogleAuthButton = () => {
 

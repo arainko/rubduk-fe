@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import Comment from '../Comment/Comment'
 import { CommentsAPI } from '../../Api/CommentsAPI'
 import { setComments, resetComments, commentsLoaded, commentsNotLoaded } from '../Redux/Actions';
+import { RootState } from '../../Interfaces/interfaces';
 
 const useStyles = makeStyles({
     button: {
@@ -38,14 +39,6 @@ const useStyles = makeStyles({
 
 interface CommentsModalProps {
     postId: number
-}
-
-interface RootState {
-    comments: Array<any>
-    isSpinnerInComments: Boolean
-    sessionUser: any
-    GoogleTokenId: String
-    // TODO make comments interface
 }
 
 const CommentsModal = (props: CommentsModalProps) => {

@@ -9,6 +9,7 @@ import { TextField } from '@material-ui/core';
 import theme from '../../theme'
 import { useSelector } from 'react-redux';
 import { PostAPI } from '../../Api/PostAPI';
+import { RootState } from '../../Interfaces/interfaces';
 
 const useStyles = makeStyles({
   root: {
@@ -30,11 +31,6 @@ const useStyles = makeStyles({
     color: theme.palette.secondary.dark
 },
 });
-
-interface RootState {
-    sessionUser: any
-    GoogleTokenId: String
-}
 
 export default function MediaCard() {
   const classes = useStyles();

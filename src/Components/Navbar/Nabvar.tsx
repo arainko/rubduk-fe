@@ -20,6 +20,7 @@ import { Link as MaterialLink } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetGoogleTokenId, resetSessionUser } from '../Redux/Actions';
+import { RootState } from '../../Interfaces/interfaces';
 
 const useStyles = makeStyles((theme:Theme) => ({
   root: {
@@ -67,9 +68,6 @@ const useStyles = makeStyles((theme:Theme) => ({
   }
 }));
 
-interface RootState {
-  sessionUser: any
-}
 
 const Navbar = () => {
   const classes = useStyles();
