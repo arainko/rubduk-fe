@@ -6,12 +6,10 @@ const fetchPosts = () => axios.get( config.apiURL + 'posts')
     return res.data.entities;
 })
 
-const fetchPostsByUserId = (userId: number) => axios.get( config.apiURL + 'posts?userId=' + userId)
+const fetchPostsByUserId = (userId: number) => axios.get(config.apiURL + 'posts?userId=' + userId)
     .then(res => {
     return res.data.entities;
 })
-
-// TODO again, interfaces, press ctrl+f "any" to build interfaces for other types waiting 
 
 const jsonify = (text: String) => {
     return JSON.stringify({ contents: text })

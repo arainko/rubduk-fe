@@ -14,7 +14,16 @@ export const setPosts = (posts) => {
     }
 }
 
-export const profilePostsLoaded = () => {
+// posts spinner
+
+export const postsNotLoaded = () => {
+    return {
+        type: 'POSTS_NOT_LOADED',
+        payload: true
+    }
+}
+
+export const postsLoaded = () => {
     return {
         type: 'POSTS_LOADED',
         payload: true
@@ -29,6 +38,8 @@ export const setProfileUser = (user) => {
         payload: user
     }
 }
+
+// user profile spinner
 
 export const profileUserLoaded = () => {
     return {
@@ -52,6 +63,8 @@ export const resetComments = () => {
         payload: null
     }
 }
+
+// comments spinner
 
 export const commentsLoaded = () => {
     return {

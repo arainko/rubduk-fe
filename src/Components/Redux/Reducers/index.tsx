@@ -12,7 +12,7 @@ import {combineReducers} from 'redux';
 const allReducers = combineReducers({
     isLogged: isLoggedReducer,
     posts: setPostsReducer,
-    isSpinnerInProfilePosts: profilePostsSpinner,
+    isSpinnerInPosts: profilePostsSpinner,
     profileUser: setUserReducer,
     isSpinnerInUserPage: userPageSpinner,
     comments: setCommentsReducer,

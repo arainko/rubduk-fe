@@ -131,7 +131,6 @@ const Navbar = () => {
               <ListItemText>
                 <Typography color="secondary">
                   <MaterialLink to={'/Profile/user=' + getSessionUserOrRedirect()} color="secondary" underline="none" component={Link}>My profile</MaterialLink>
-                  {/* TODO Get user id from state for logged in */}
                 </Typography>
               </ListItemText>
             </ListItem>
@@ -158,7 +157,6 @@ const Navbar = () => {
                   onClick={() => {
                     dispatch(resetGoogleTokenId())
                     dispatch(resetSessionUser())
-                    //TODO reset whole state
                   }}>
                     Log out</MaterialLink>
                 </Typography>
