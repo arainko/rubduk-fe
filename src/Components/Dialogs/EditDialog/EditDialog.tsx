@@ -8,7 +8,8 @@ import { makeStyles, MenuItem, TextField } from '@material-ui/core';
 import theme from '../../../theme';
 import { PostAPI } from '../../../Api/PostAPI';
 import { CommentsAPI } from '../../../Api/CommentsAPI';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { commentsLoaded, commentsNotLoaded, postsLoaded, postsNotLoaded, setComments, setPosts } from '../../Redux/Actions';
 
 const useStyles = makeStyles({
     button: {
@@ -56,7 +57,7 @@ const EditDialog = (props: EditDialogInterface) => {
     // const [errorMessage, setErrorMessage] = React.useState("");
 
     const classes = useStyles();
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     const handleClickOpen = () => () => {
         setOpen(true);
@@ -67,21 +68,41 @@ const EditDialog = (props: EditDialogInterface) => {
     };
 
     const handleSendEdited = async () => {
-        // dispatch(searchedPostsNotLoaded())
-        // dispatch(resetSearchedPosts())
         if (props.isPost) {
-            PostAPI.updatePost(
+            dispatch(postsNotLoaded())
+            await PostAPI.updatePost(
                 props.postId, 
                 props.userId, 
                 props.authToken, 
                 contentValue)
+            if (props.isInFeed && props.isInFeed === true) {
+                PostAPI
+                .fetchPosts()
+                .then(async (data) => {
+                    await dispatch(setPosts(data))
+                })
+            } else {
+                PostAPI
+                .fetchPostsByUserId(props.userId)
+                .then(async (data) => {
+                    await dispatch(setPosts(data))
+                })
+            }
+            dispatch(postsLoaded())
         } else {
-            CommentsAPI.updateComment(
+            dispatch(commentsNotLoaded())
+            await CommentsAPI.updateComment(
                 props.postId,
                 props.commentId,
                 props.userId, 
                 props.authToken, 
                 contentValue)
+            CommentsAPI
+            .fetchCommentstsByPostId(props.postId)
+            .then(async (data) => {
+                await dispatch(setComments(data))
+            })
+            dispatch(commentsLoaded())
         }
         handleClose()
     };
