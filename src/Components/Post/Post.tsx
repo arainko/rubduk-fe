@@ -7,12 +7,13 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import theme from '../../theme'
-import { CardHeader, IconButton, Menu, MenuItem } from '@material-ui/core';
+import { CardHeader, IconButton, Menu } from '@material-ui/core';
 import CommentsModal from '../CommentsModal/CommentsModal';
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import { useSelector } from 'react-redux';
 import { PostProps, RootState } from '../../Interfaces/interfaces';
 import EditDialog from '../Dialogs/EditDialog/EditDialog';
+import DeleteDialog from '../Dialogs/DeleteDialog/DeleteDialog';
 
 const useStyles = makeStyles({
     subheader: {
@@ -89,7 +90,7 @@ const Post = (props: PostProps) => {
             onClose={handleClose}
         >
             <EditDialog isInFeed={props.isInFeed} isPost={true} postId={props.postId} userId={props.userId} authToken={GoogleTokenId} contents={props.contents}/>
-            <MenuItem onClick={handleClose}>Delete</MenuItem>
+            <DeleteDialog isPost={true} objectId={props.postId} isInFeed={props.isInFeed} userId={props.userId} authToken={GoogleTokenId}/>
         </Menu>
         </Card>
     );

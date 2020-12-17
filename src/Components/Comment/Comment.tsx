@@ -1,13 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import theme from '../../theme';
-import FaceIcon from '@material-ui/icons/Face'
-import {Card, CardActions, CardContent, CardHeader, IconButton, Menu, MenuItem, Paper} from "@material-ui/core";
+import {Card, CardContent, CardHeader, IconButton, Menu} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import { useSelector } from 'react-redux';
 import { RootState } from '../../Interfaces/interfaces';
 import EditDialog from '../Dialogs/EditDialog/EditDialog';
+import DeleteDialog from '../Dialogs/DeleteDialog/DeleteDialog';
 
 const useStyles = makeStyles({
     comment: {
@@ -83,7 +83,7 @@ const Comment = (props: CommentProps) => {
             onClose={handleClose}
             >
                 <EditDialog isPost={false} postId={props.postId} userId={props.userId} authToken={GoogleTokenId} contents={props.contents}/>
-                <MenuItem onClick={handleClose}>Delete</MenuItem>
+                <DeleteDialog isPost={false} objectId={props.commentId} userId={props.userId} authToken={GoogleTokenId}/>
             </Menu>
         </Card>
     )

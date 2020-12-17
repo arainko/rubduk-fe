@@ -14,7 +14,7 @@ export interface PostAreaProps {
     userId?: number,
     userName?: string,
     userLastName?: string,
-    isInFeed: Boolean
+    isInFeed: boolean
 }
 
 export interface PostProps {
@@ -24,7 +24,7 @@ export interface PostProps {
     userLastName: string,
     contents: string,
     dateAdded: Date,
-    isInFeed: Boolean
+    isInFeed: boolean
 }
 
 export interface PostProps {
