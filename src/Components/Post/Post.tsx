@@ -89,7 +89,7 @@ const Post = (props: PostProps) => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
         >
-            <EditDialog isInFeed={props.isInFeed} isPost={true} postId={props.postId} userId={props.userId} authToken={GoogleTokenId} contents={props.contents}/>
+            <EditDialog isInFeed={props.isInFeed} isPost={true} postId={props.postId} userId={sessionUser.id} authToken={GoogleTokenId} contents={props.contents} commentId={0}/>
             <DeleteDialog isPost={true} objectId={props.postId} isInFeed={props.isInFeed} userId={props.userId} authToken={GoogleTokenId}/>
         </Menu>
         </Card>

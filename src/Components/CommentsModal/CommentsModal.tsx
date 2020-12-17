@@ -12,7 +12,7 @@ import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 import Typography from '@material-ui/core/Typography';
 import Comment from '../Comment/Comment'
 import { CommentsAPI } from '../../Api/CommentsAPI'
-import { setComments, resetComments, commentsLoaded, commentsNotLoaded } from '../Redux/Actions';
+import { setComments, commentsLoaded, commentsNotLoaded } from '../Redux/Actions';
 import { RootState } from '../../Interfaces/interfaces';
 
 const useStyles = makeStyles({
@@ -52,15 +52,14 @@ const CommentsModal = (props: CommentsModalProps) => {
         setOpen(true);
         CommentsAPI
         .fetchCommentstsByPostId(props.postId)
-        .then((data) => {
-            dispatch(setComments(data))
+        .then(async (data) => {
+            await dispatch(setComments(data))
             dispatch(commentsLoaded())
         })
     };
 
     const handleClose = async () => {
         setOpen(false);
-        await dispatch(resetComments())
         dispatch(commentsNotLoaded())
     };
 
@@ -93,6 +92,7 @@ const CommentsModal = (props: CommentsModalProps) => {
                 <Typography>No comments, be first!</Typography>
             </div>)
         } else {
+            // TODO props.userId -> comment.userId
             return comments.map(comment => <Comment postId={props.postId} userId={props.userId} key={"comment" + comment.id} dateAdded={comment.dateAdded} userName={comment.name} userLastName={comment.lastName} commentId={comment.id} contents={comment.contents}/>)
         }
     }

@@ -82,7 +82,7 @@ const Comment = (props: CommentProps) => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
             >
-                <EditDialog isPost={false} postId={props.postId} userId={props.userId} authToken={GoogleTokenId} contents={props.contents}/>
+                <EditDialog isPost={false} postId={props.postId} userId={props.userId} authToken={GoogleTokenId} contents={props.contents} commentId={props.commentId}/>
                 <DeleteDialog isPost={false} objectId={props.commentId} userId={props.userId} authToken={GoogleTokenId}/>
             </Menu>
         </Card>

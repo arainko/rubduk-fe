@@ -6,6 +6,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles, MenuItem, TextField } from '@material-ui/core';
 import theme from '../../../theme';
+import { PostAPI } from '../../../Api/PostAPI';
+import { CommentsAPI } from '../../../Api/CommentsAPI';
 // import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles({
@@ -30,6 +32,7 @@ interface EditDialogInterface {
     isInFeed?: Boolean,
     contents: string,
     postId: number,
+    commentId: number,
     userId: number,
     authToken: string
 }
@@ -66,7 +69,20 @@ const EditDialog = (props: EditDialogInterface) => {
     const handleSendEdited = async () => {
         // dispatch(searchedPostsNotLoaded())
         // dispatch(resetSearchedPosts())
-        
+        if (props.isPost) {
+            PostAPI.updatePost(
+                props.postId, 
+                props.userId, 
+                props.authToken, 
+                contentValue)
+        } else {
+            CommentsAPI.updateComment(
+                props.postId,
+                props.commentId,
+                props.userId, 
+                props.authToken, 
+                contentValue)
+        }
         handleClose()
     };
 
