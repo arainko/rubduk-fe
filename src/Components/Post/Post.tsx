@@ -57,7 +57,8 @@ const Post = (props: PostProps) => {
 
     return (
         <Card className={classes.card}>
-            <CardHeader className={classes.subheader} color="white"
+            <CardHeader 
+                className={classes.subheader} color="white"
                 title={props.userName + " " + props.userLastName}
                 subheader={"added " + props.dateAdded}
                 action={
@@ -75,7 +76,7 @@ const Post = (props: PostProps) => {
             <Button size="small" variant="contained" className={classes.button}>
                 Like
             </Button>
-            <CommentsModal postId={props.postId}/>
+            <CommentsModal postId={props.postId} userId={props.userId}/>
             <Button size="small" variant="contained" className={classes.button}>
                 Share
             </Button>
