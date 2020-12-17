@@ -54,14 +54,15 @@ const PostArea = (props: PostAreaProps) => {
             return <Typography className={classes.noPosts}>No posts to show.</Typography>
         } else {
             return posts.map(post => 
-            <Post 
+            <Post
                 key={'post' + post.id} 
                 postId={post.id} 
                 userId={post.userId} 
                 contents={post.contents} 
                 dateAdded={post.dateAdded}
                 userLastName={"TODO.post.userLastName"} 
-                userName={"TODO.post.userName"}/>)
+                userName={"TODO.post.userName"}
+                isInFeed={props.isInFeed}/>)
         }
     })
 
