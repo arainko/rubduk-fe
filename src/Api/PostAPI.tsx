@@ -33,9 +33,24 @@ const postPost = (userId: number, contents: String, authTokenId: String) => {
         )
     .then(res => {
     return res.data;
-})
+    })
 }
 
+const updatePost = (
+    postId: number, 
+    userId: number, 
+    authTokenId: string, 
+    contents: string) => {
+        axios.put(
+            config.apiURL + 'posts/' + postId, 
+            jsonify(contents), 
+            headerJsonConfiguration(userId, authTokenId)
+            )
+        .then(res => {
+        return res.data;
+        })
+    }
+
 export const PostAPI = {
-    fetchPosts, fetchPostsByUserId, postPost
+    fetchPosts, fetchPostsByUserId, postPost, updatePost
 };

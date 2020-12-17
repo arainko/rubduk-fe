@@ -27,6 +27,17 @@ const PostArea = (props: PostAreaProps) => {
 
     const posts = useSelector((state: RootState) => state.posts);
     const isSpinnerVisible = useSelector((state: RootState) => state.isSpinnerInPosts);
+    const sessionUser = useSelector((state: RootState) => state.sessionUser);
+
+    const showWriteOrNot = () => {
+        if (sessionUser.id === props.userId) {
+            return (
+                <PostWriter isInFeed={props.isInFeed} userId={props.userId}/>
+            )
+        } else {
+            return (<div></div>)
+        }
+    }
 
     useEffect(() => {
         dispatch(postsNotLoaded())
@@ -54,14 +65,15 @@ const PostArea = (props: PostAreaProps) => {
             return <Typography className={classes.noPosts}>No posts to show.</Typography>
         } else {
             return posts.map(post => 
-            <Post 
+            <Post
                 key={'post' + post.id} 
                 postId={post.id} 
                 userId={post.userId} 
                 contents={post.contents} 
                 dateAdded={post.dateAdded}
-                userLastName={"TODO.post.userLastName"} 
-                userName={"TODO.post.userName"}/>)
+                userLastName={post.userLastname} 
+                userName={post.username}
+                isInFeed={props.isInFeed}/>)
         }
     })
 
@@ -69,7 +81,7 @@ const PostArea = (props: PostAreaProps) => {
         <Paper variant="outlined" className={classes.card}>
             {isSpinnerVisible
             ? <div></div>
-            : <PostWriter/>}
+            : showWriteOrNot()}
             {isSpinnerVisible
             ? <LoadingSpinner/>
             : showPosts()}

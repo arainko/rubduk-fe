@@ -12,7 +12,7 @@ import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 import Typography from '@material-ui/core/Typography';
 import Comment from '../Comment/Comment'
 import { CommentsAPI } from '../../Api/CommentsAPI'
-import { setComments, resetComments, commentsLoaded, commentsNotLoaded } from '../Redux/Actions';
+import { setComments, commentsLoaded, commentsNotLoaded } from '../Redux/Actions';
 import { RootState } from '../../Interfaces/interfaces';
 
 const useStyles = makeStyles({
@@ -38,7 +38,8 @@ const useStyles = makeStyles({
 });
 
 interface CommentsModalProps {
-    postId: number
+    postId: number,
+    userId: number
 }
 
 const CommentsModal = (props: CommentsModalProps) => {
@@ -51,24 +52,23 @@ const CommentsModal = (props: CommentsModalProps) => {
         setOpen(true);
         CommentsAPI
         .fetchCommentstsByPostId(props.postId)
-        .then((data) => {
-            dispatch(setComments(data))
+        .then(async (data) => {
+            await dispatch(setComments(data))
             dispatch(commentsLoaded())
         })
     };
 
-    const handleClose = () => {
+    const handleClose = async () => {
         setOpen(false);
-        dispatch(resetComments())
         dispatch(commentsNotLoaded())
     };
 
-    const reloadComments = () => {
+    const reloadComments = async () => {
         dispatch(commentsNotLoaded())
-        CommentsAPI
+        await CommentsAPI
         .fetchCommentstsByPostId(props.postId)
-        .then((data) => {
-            dispatch(setComments(data))
+        .then(async (data) => {
+            await dispatch(setComments(data))
             dispatch(commentsLoaded())
         })
     }
@@ -78,8 +78,8 @@ const CommentsModal = (props: CommentsModalProps) => {
     const sessionUser = useSelector((state: RootState) => state.sessionUser);
     const GoogleTokenId = useSelector((state: RootState) => state.GoogleTokenId);
 
-    const handleCommentPost = () => {
-        CommentsAPI
+    const handleCommentPost = async () => {
+        await CommentsAPI
             .postComentInPost(props.postId, sessionUser.id, commentValue, GoogleTokenId)
         reloadComments()
     }
@@ -92,7 +92,7 @@ const CommentsModal = (props: CommentsModalProps) => {
                 <Typography>No comments, be first!</Typography>
             </div>)
         } else {
-            return comments.map(comment => <Comment key={"comment" + comment.id} dateAdded={comment.dateAdded} userName={comment.name} userLastName={comment.lastName} commentId={comment.id} contents={comment.contents}/>)
+            return comments.map(comment => <Comment postId={props.postId} userId={comment.userId} key={"comment" + comment.id} dateAdded={comment.dateAdded} userName={comment.name} userLastName={comment.lastName} commentId={comment.id} contents={comment.contents}/>)
         }
     }
 

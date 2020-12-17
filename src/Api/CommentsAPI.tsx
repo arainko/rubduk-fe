@@ -28,10 +28,27 @@ const postComentInPost = (postId: number, userId: number, contents: String, auth
         )
     .then(res => {
     return res.data;
-})
+    })
 }
+
+const updateComment = (
+    postId: number,
+    commentId: number,
+    userId: number,
+    authTokenId: string, 
+    contents: string) => {
+        axios.put(
+            config.apiURL + 'posts/' + postId + "/comments/" + commentId, 
+            jsonify(contents), 
+            headerJsonConfiguration(userId, authTokenId)
+            )
+        .then(res => {
+        return res.data;
+        })
+    }
 
 export const CommentsAPI = {
     fetchCommentstsByPostId: fetchCommentsByPostId,
-    postComentInPost: postComentInPost
+    postComentInPost: postComentInPost,
+    updateComment: updateComment
 };

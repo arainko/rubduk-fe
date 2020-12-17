@@ -7,8 +7,13 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import theme from '../../theme'
-import { CardHeader } from '@material-ui/core';
+import { CardHeader, IconButton, Menu } from '@material-ui/core';
 import CommentsModal from '../CommentsModal/CommentsModal';
+import MoreVertIcon from '@material-ui/icons/MoreVert'
+import { useSelector } from 'react-redux';
+import { PostProps, RootState } from '../../Interfaces/interfaces';
+import EditDialog from '../Dialogs/EditDialog/EditDialog';
+import DeleteDialog from '../Dialogs/DeleteDialog/DeleteDialog';
 
 const useStyles = makeStyles({
     subheader: {
@@ -24,30 +29,44 @@ const useStyles = makeStyles({
     },
 });
 
-interface PostProps {
-    postId: number,
-    userId: number,
-    userName: string,
-    userLastName: string,
-    contents: string,
-    dateAdded: Date
-}
-
 const Post = (props: PostProps) => {
 
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const sessionUser = useSelector((state: RootState) => state.sessionUser);
+    const GoogleTokenId = useSelector((state: RootState) => state.GoogleTokenId);
     const classes = useStyles();
+
+    const showMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const showAction = () => {
+        if (props.userId === sessionUser.id) {
+            return (
+                <IconButton aria-controls="simple-menu" aria-label="settings" aria-haspopup="true" color="secondary" onClick={showMenu}>
+                    <MoreVertIcon />
+                </IconButton>
+            )
+        } else {
+            return (<div></div>)
+        }
+    }
 
     return (
         <Card className={classes.card}>
-            <CardHeader className={classes.subheader} color="white"
+            <CardHeader 
+                className={classes.subheader} color="white"
                 title={props.userName + " " + props.userLastName}
                 subheader={"added " + props.dateAdded}
+                action={
+                    showAction()
+                }
             />
             <CardActionArea>
-                {/* <CardMedia
-                    className={classes.media}
-                    image="https://pm1.narvii.com/6535/615e425e3c9244ab65f07788409cf15b97723718_hq.jpg"
-                /> */}
                 <CardContent>
                     <Typography variant="body2" component="p">
                         {props.contents}
@@ -58,11 +77,21 @@ const Post = (props: PostProps) => {
             <Button size="small" variant="contained" className={classes.button}>
                 Like
             </Button>
-            <CommentsModal postId={props.postId}/>
+            <CommentsModal postId={props.postId} userId={props.userId}/>
             <Button size="small" variant="contained" className={classes.button}>
                 Share
             </Button>
         </CardActions>
+        <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+        >
+            <EditDialog isInFeed={props.isInFeed} isPost={true} postId={props.postId} userId={sessionUser.id} authToken={GoogleTokenId} contents={props.contents} commentId={0}/>
+            <DeleteDialog isPost={true} objectId={props.postId} isInFeed={props.isInFeed} userId={props.userId} authToken={GoogleTokenId}/>
+        </Menu>
         </Card>
     );
 }

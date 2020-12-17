@@ -6,19 +6,29 @@ export interface RootState {
     isSpinnerInUserPage: Boolean,
     comments: Array<any>,
     isSpinnerInComments: Boolean,
-    GoogleTokenId: String,
+    GoogleTokenId: string,
     sessionUser: any
 }
 
 export interface PostAreaProps {
-    userId?: number,
+    userId: number,
     userName?: string,
     userLastName?: string,
-    isInFeed: Boolean
+    isInFeed: boolean
 }
 
 export interface PostProps {
-    id: number,
+    postId: number,
+    userId: number,
+    userName: string,
+    userLastName: string,
+    contents: string,
+    dateAdded: Date,
+    isInFeed: boolean
+}
+
+export interface PostProps {
+    postId: number,
     userId: number,
     userName: string,
     userLastName: string,
