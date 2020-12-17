@@ -1,10 +1,12 @@
-const profilePostsSpinner = (state = true, action: any) => {
+const postsSpinner = (state = true, action: any) => {
     switch(action.type) {
         case 'POSTS_LOADED':
-            return !state;
+            return false;
+        case 'POSTS_NOT_LOADED':
+            return true;
         default:
             return state;
     }
 };
 
-export default profilePostsSpinner
+export default postsSpinner

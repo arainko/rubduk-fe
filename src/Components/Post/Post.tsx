@@ -49,7 +49,6 @@ const Post = (props: PostProps) => {
                     image="https://pm1.narvii.com/6535/615e425e3c9244ab65f07788409cf15b97723718_hq.jpg"
                 /> */}
                 <CardContent>
-                    {/* TODO The title can be empty */}
                     <Typography variant="body2" component="p">
                         {props.contents}
                     </Typography>

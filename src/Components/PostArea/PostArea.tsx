@@ -6,10 +6,10 @@ import theme from '../../theme'
 import { useEffect } from 'react';
 import { PostAPI } from '../../Api/PostAPI'
 import { useDispatch, useSelector } from 'react-redux';
-import { setPosts, profilePostsLoaded } from '../Redux/Actions';
+import { setPosts, postsLoaded, postsNotLoaded } from '../Redux/Actions';
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 import PostWriter from '../PostWriter/PostWriter';
-import { RootState } from '../../Interfaces/interfaces';
+import { PostAreaProps, RootState } from '../../Interfaces/interfaces';
 
 const useStyles = makeStyles({
     card: {
@@ -20,44 +20,48 @@ const useStyles = makeStyles({
     }
 });
 
-interface PostAreaProps {
-    userId: number,
-    userName: string,
-    userLastName: string
-}
-
-interface PostProps {
-    id: number,
-    userId: number,
-    userName: string,
-    userLastName: string,
-    contents: string,
-    dateAdded: Date
-}
-
 const PostArea = (props: PostAreaProps) => {
     const classes = useStyles();
 
     const dispatch = useDispatch();
 
     const posts = useSelector((state: RootState) => state.posts);
-    const isSpinnerVisible = useSelector((state: RootState) => state.isSpinnerInProfilePosts);
+    const isSpinnerVisible = useSelector((state: RootState) => state.isSpinnerInPosts);
 
     useEffect(() => {
-        PostAPI
-        .fetchPostsByUserId(props.userId)
-        .then((data) =>
+        dispatch(postsNotLoaded())
+        if (props.isInFeed) {
+            PostAPI
+            .fetchPosts()
+            .then(async (data) =>
             {
-                dispatch(setPosts(data))
-                dispatch(profilePostsLoaded())
+                await dispatch(setPosts(data))
+                dispatch(postsLoaded())
             })
-    }, [props.userId, dispatch]);
+        } else if (props.userId !== undefined) {
+            PostAPI
+            .fetchPostsByUserId(props.userId)
+            .then(async (data) =>
+                {
+                    await dispatch(setPosts(data))
+                    dispatch(postsLoaded())
+                })
+        }
+    }, [props.userId, props.isInFeed, dispatch]);
 
     const showPosts = (() => {
-        if (posts.length === 0) {
-            return <Typography className={classes.noPosts}>No posts, write Your first!</Typography>
+        if (posts === null) {
+            return <Typography className={classes.noPosts}>No posts to show.</Typography>
         } else {
-            return posts.map(post => <Post key={'post' + post.id} postId={post.id} userId={post.userId} contents={post.contents} dateAdded={post.dateAdded} userLastName={props.userLastName} userName={props.userName}/>)
+            return posts.map(post => 
+            <Post 
+                key={'post' + post.id} 
+                postId={post.id} 
+                userId={post.userId} 
+                contents={post.contents} 
+                dateAdded={post.dateAdded}
+                userLastName={"TODO.post.userLastName"} 
+                userName={"TODO.post.userName"}/>)
         }
     })
 

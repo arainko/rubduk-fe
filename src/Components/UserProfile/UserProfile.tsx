@@ -44,7 +44,7 @@ const UserProfile = (props: UserProfileProps) => {
                     {<ProfileCard name={profileUser.name} lastName={profileUser.lastName} createdOn={profileUser.createdOn}/>}
                 </div>
                 <div id={"post-area"}>
-                    {<PostArea userId={profileUser.id} userName={profileUser.name} userLastName={profileUser.lastName}/>}
+                    {<PostArea isInFeed={false} userId={profileUser.id} userName={profileUser.name} userLastName={profileUser.lastName}/>}
                 </div>
             </div>)
             }

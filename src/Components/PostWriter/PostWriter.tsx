@@ -13,7 +13,7 @@ import { RootState } from '../../Interfaces/interfaces';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+
   },
   card: {
     marginBottom: 5,
