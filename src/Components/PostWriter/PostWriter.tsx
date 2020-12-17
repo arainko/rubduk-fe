@@ -7,9 +7,10 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import { TextField } from '@material-ui/core';
 import theme from '../../theme'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { PostAPI } from '../../Api/PostAPI';
 import { RootState } from '../../Interfaces/interfaces';
+import { postsLoaded, postsNotLoaded, setPosts } from '../Redux/Actions';
 
 const useStyles = makeStyles({
   root: {
@@ -32,13 +33,32 @@ const useStyles = makeStyles({
 },
 });
 
-export default function MediaCard() {
-  const classes = useStyles();
-
-  const handlePostPost = () => {
-    PostAPI
-        .postPost(sessionUser.id, postValue, GoogleTokenId)
+interface PostWriterProps {
+  isInFeed: boolean,
+  userId: number
 }
+
+const PostWriter = (props: PostWriterProps) => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const handlePostPost = async () => {
+    dispatch(postsNotLoaded())
+    await PostAPI.postPost(sessionUser.id, postValue, GoogleTokenId)
+    
+    if (props.isInFeed) {
+      PostAPI.fetchPosts()
+      .then(async (data) => {
+        await dispatch(setPosts(data))
+      })
+    } else {
+      PostAPI.fetchPostsByUserId(props.userId)
+      .then(async (data) => {
+        await dispatch(setPosts(data))
+      })
+    }
+    dispatch(postsLoaded())
+  }
 
   const [postValue, setPostValue] = useState('')
   const sessionUser = useSelector((state: RootState) => state.sessionUser);
@@ -84,3 +104,5 @@ export default function MediaCard() {
     </Card>
   );
 }
+
+export default PostWriter

@@ -11,7 +11,7 @@ export interface RootState {
 }
 
 export interface PostAreaProps {
-    userId?: number,
+    userId: number,
     userName?: string,
     userLastName?: string,
     isInFeed: boolean

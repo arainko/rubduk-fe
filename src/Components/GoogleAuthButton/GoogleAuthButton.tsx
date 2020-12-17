@@ -9,26 +9,22 @@ import { RootState } from '../../Interfaces/interfaces';
 const GoogleAuthButton = () => {
 
     const dispatch = useDispatch();
-    const redirect = () => {
-        return <Redirect to='/target' />;
-    }
 
     const onSuccessLogin = (response: any) => {
         dispatch(logIn())
         dispatch(setGoogleTokenId(response.tokenId))
         UserAPI
             .registerNewUser(response.tokenId)
-            .then((data) => {
-                dispatch(setSessionUser(data))
+            .then(async (data) => {
+                await dispatch(setSessionUser(data))
             })
-        redirect()
     }
 
     const onFailureLogin = (response: any) => {
         console.log(response.tokenId);
     }
     
-    const isLogged = useSelector((state: RootState) => state.isLogged);
+    const sessionUser = useSelector((state: RootState) => state.sessionUser);
     
     return (
         <div>
@@ -39,7 +35,7 @@ const GoogleAuthButton = () => {
                 onFailure={onFailureLogin}
                 cookiePolicy={'single_host_origin'}
             />
-            {isLogged ? <Redirect to="/Feed"></Redirect> : <h3>Click to log in</h3>}
+            {sessionUser ? <Redirect to="/Feed"></Redirect> : <div></div>}
         </div>
     );
 };

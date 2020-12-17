@@ -58,18 +58,18 @@ const CommentsModal = (props: CommentsModalProps) => {
         })
     };
 
-    const handleClose = () => {
+    const handleClose = async () => {
         setOpen(false);
-        dispatch(resetComments())
+        await dispatch(resetComments())
         dispatch(commentsNotLoaded())
     };
 
-    const reloadComments = () => {
+    const reloadComments = async () => {
         dispatch(commentsNotLoaded())
-        CommentsAPI
+        await CommentsAPI
         .fetchCommentstsByPostId(props.postId)
-        .then((data) => {
-            dispatch(setComments(data))
+        .then(async (data) => {
+            await dispatch(setComments(data))
             dispatch(commentsLoaded())
         })
     }
@@ -79,8 +79,8 @@ const CommentsModal = (props: CommentsModalProps) => {
     const sessionUser = useSelector((state: RootState) => state.sessionUser);
     const GoogleTokenId = useSelector((state: RootState) => state.GoogleTokenId);
 
-    const handleCommentPost = () => {
-        CommentsAPI
+    const handleCommentPost = async () => {
+        await CommentsAPI
             .postComentInPost(props.postId, sessionUser.id, commentValue, GoogleTokenId)
         reloadComments()
     }

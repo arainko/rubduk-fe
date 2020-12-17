@@ -98,6 +98,9 @@ return (
             InputProps={{
                 className: classes.multilineColor,
             }}
+            InputLabelProps={{
+                className: classes.multilineColor,
+            }}
             rows={8}
             color="secondary"
             className={classes.commentField}
