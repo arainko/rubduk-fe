@@ -71,9 +71,8 @@ const PostArea = (props: PostAreaProps) => {
                 userId={post.userId} 
                 contents={post.contents} 
                 dateAdded={post.dateAdded}
-                //TODO props.user names
-                userLastName={"TODO.post.userLastName"} 
-                userName={"TODO.post.userName"}
+                userLastName={post.userLastname} 
+                userName={post.username}
                 isInFeed={props.isInFeed}/>)
         }
     })

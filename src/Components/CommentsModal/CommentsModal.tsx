@@ -92,8 +92,7 @@ const CommentsModal = (props: CommentsModalProps) => {
                 <Typography>No comments, be first!</Typography>
             </div>)
         } else {
-            // TODO props.userId -> comment.userId
-            return comments.map(comment => <Comment postId={props.postId} userId={props.userId} key={"comment" + comment.id} dateAdded={comment.dateAdded} userName={comment.name} userLastName={comment.lastName} commentId={comment.id} contents={comment.contents}/>)
+            return comments.map(comment => <Comment postId={props.postId} userId={comment.userId} key={"comment" + comment.id} dateAdded={comment.dateAdded} userName={comment.name} userLastName={comment.lastName} commentId={comment.id} contents={comment.contents}/>)
         }
     }
 
