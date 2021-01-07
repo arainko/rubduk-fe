@@ -1,0 +1,106 @@
+import React, { useEffect } from 'react';
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import IconButton from '@material-ui/core/IconButton';
+import InfoIcon from '@material-ui/icons/Info';
+import { MediaAPI } from '../../Api/MediaAPI';
+import { RootState } from '../../Interfaces/interfaces';
+import { useDispatch, useSelector } from 'react-redux';
+import { mediaNotLoaded, setMedia, mediaLoaded } from '../Redux/Actions';
+import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner'
+
+interface MediaAreaProps {
+    isInFeed: boolean;
+    userId: number;
+}
+
+const useStyles = makeStyles((theme: Theme) =>
+createStyles({
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+        overflow: 'hidden',
+        backgroundColor: theme.palette.primary.main,
+    },
+    gridList: {
+        width: 'auto',
+        height: 'auto',
+    },
+    icon: {
+        color: 'rgba(255, 255, 255, 0.54)',
+    },
+}),
+);
+
+const MediaArea = (props: MediaAreaProps) => {
+    const classes = useStyles();
+
+    const dispatch = useDispatch();
+
+    const media = useSelector((state: RootState) => state.media);
+    const isSpinnerVisible = useSelector((state: RootState) => state.isSpinnerInMedia);
+
+    useEffect(() => {
+        dispatch(mediaNotLoaded())
+        if (props.isInFeed) {
+            MediaAPI
+            .fetchMediaByUserId(props.userId) //TODO this will have to be changed to fetchmediabyfriends when avaliable
+            .then(async (data) =>
+            {
+                await dispatch(setMedia(data))
+                dispatch(mediaLoaded())
+            })
+        } else if (props.userId !== undefined) {
+            MediaAPI
+            .fetchMediaByUserId(props.userId)
+            .then(async (data) =>
+                {
+                    await dispatch(setMedia(data))
+                    dispatch(mediaLoaded())
+                })
+        }
+    }, [props.userId, props.isInFeed, dispatch]);
+
+    const showMediaOrInfo = () => {
+        if (media.length === 0) {
+            return <span>DUPA</span>
+        } else {
+            return (
+                <GridList cellHeight={180} className={classes.gridList}>
+                {/* <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
+                    <ListSubheader component="div">December</ListSubheader>
+                </GridListTile> */}
+                {media.map((tile: any) => (
+                    <GridListTile key={tile.link}>
+                        <img src={tile.link} alt={tile.description} />
+                        <GridListTileBar
+                            title={tile.dateAdded}
+                            subtitle={<span>{tile.description}</span>}
+                            actionIcon={
+                                <IconButton aria-label={`link ${tile.link}`} className={classes.icon}>
+                                    <InfoIcon />
+                                </IconButton>
+                            }
+                        />
+                    </GridListTile>
+                ))}
+            </GridList>
+            )
+        }
+    }
+
+    return (
+        <div className={classes.root}>
+            {isSpinnerVisible
+            ? <LoadingSpinner/>
+            : showMediaOrInfo()
+            }
+        </div>
+    );
+}
+
+export default MediaArea

@@ -111,3 +111,36 @@ export const resetSessionUser = () => {
         payload: null
     }
 }
+
+// media
+
+
+export const setMedia = (media) => {
+    return {
+        type: 'SET_MEDIA',
+        payload: media
+    }
+}
+
+export const resetMedia = () => {
+    return {
+        type: 'RESET_MEDIA',
+        payload: null
+    }
+}
+
+// media spinner
+
+export const mediaLoaded = () => {
+    return {
+        type: 'MEDIA_LOADED',
+        payload: null
+    }
+}
+
+export const mediaNotLoaded = () => {
+    return {
+        type: 'MEDIA_NOT_LOADED',
+        payload: null
+    }
+}

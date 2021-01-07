@@ -32,13 +32,17 @@ body {
   position: relative;
 }
 
-#post-area {
+#post-area, #post-area-feed {
   padding-left: 20%;
   padding-right: 20%;
 }
 
+#post-area-feed {
+  margin-top: 5%;
+}
+
 @media only screen and (max-width: 600px) {
-  #post-area {
+  #post-area, #post-area-feed {
     padding-left: 5%;
     padding-right: 5%;
   }

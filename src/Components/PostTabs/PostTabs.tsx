@@ -5,6 +5,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import PostArea from '../PostArea/PostArea';
+import MediaArea from '../MediaArea/MediaArea';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -28,7 +29,7 @@ function TabPanel(props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-        <Box>
+        <Box bgcolor="primary.main">
           {children}
         </Box>
       )}
@@ -75,7 +76,7 @@ const PostTabs = (props: PostTabsProps) => {
         <PostArea isInFeed={props.isInFeed} userId={props.userId}/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <MediaArea isInFeed={props.isInFeed} userId={props.userId}/>
       </TabPanel>
     </div>
   );

@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { UserAPI } from '../../Api/UserAPI';
 import { makeStyles } from '@material-ui/core/styles';
 import ProfileCard from '../ProfleCard/ProfileCard';
-import PostArea from '../PostArea/PostArea';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProfileUser, profileUserLoaded } from '../Redux/Actions';
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';

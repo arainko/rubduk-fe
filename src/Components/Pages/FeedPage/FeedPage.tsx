@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../Interfaces/interfaces";
 import theme from "../../../theme";
 import Navbar from "../../Navbar/Nabvar"
-import PostArea from "../../PostArea/PostArea";
+import PostTabs from "../../PostTabs/PostTabs";
 
 const FeedPage = () => {
     const sessionUser = useSelector((state: RootState) => state.sessionUser);
@@ -15,9 +15,11 @@ const FeedPage = () => {
     <ThemeProvider theme={theme}>
         <CssBaseline />
         <Navbar />
-        <Grid container justify="center">
-            <PostArea isInFeed={true} userId={sessionUser.id}/>
-        </Grid>
+            <div id={"post-area-feed"}>
+                <Grid container justify="center">
+                    <PostTabs isInFeed={true} userId={sessionUser.id}/>
+                </Grid>
+            </div>
     </ThemeProvider>
     )
 }

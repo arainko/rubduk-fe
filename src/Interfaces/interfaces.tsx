@@ -1,13 +1,15 @@
 export interface RootState {
-    isLogged: Boolean,
+    isLogged: boolean,
     posts: Array<any>,
-    isSpinnerInPosts: Boolean,
+    isSpinnerInPosts: boolean,
     profileUser: any,
-    isSpinnerInUserPage: Boolean,
+    isSpinnerInUserPage: boolean,
     comments: Array<any>,
-    isSpinnerInComments: Boolean,
+    isSpinnerInComments: boolean,
     GoogleTokenId: string,
-    sessionUser: any
+    sessionUser: any,
+    media: Array<any>;
+    isSpinnerInMedia: boolean;
 }
 
 export interface PostAreaProps {
