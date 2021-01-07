@@ -79,9 +79,9 @@ const PostArea = (props: PostAreaProps) => {
 
     return (
         <Paper variant="outlined" className={classes.card}>
-            {isSpinnerVisible
+            {/* {isSpinnerVisible
             ? <div></div>
-            : showWriteOrNot()}
+            : showWriteOrNot()} */}
             {isSpinnerVisible
             ? <LoadingSpinner/>
             : showPosts()}

@@ -10,6 +10,8 @@ import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 import { Typography } from '@material-ui/core';
 import theme from '../../theme';
 import { RootState } from '../../Interfaces/interfaces';
+import PostTabs from '../PostTabs/PostTabs';
+import PostWriter from '../PostWriter/PostWriter';
 
 interface UserProfileProps {
     userId: number
@@ -44,7 +46,8 @@ const UserProfile = (props: UserProfileProps) => {
                     {<ProfileCard name={profileUser.name} lastName={profileUser.lastName} createdOn={profileUser.createdOn}/>}
                 </div>
                 <div id={"post-area"}>
-                    {<PostArea isInFeed={false} userId={profileUser.id} userName={profileUser.name} userLastName={profileUser.lastName}/>}
+                    <PostWriter isInFeed={false} userId={profileUser.id}/>
+                    <PostTabs isInFeed={false} userId={profileUser.id}/>
                 </div>
             </div>)
             }
