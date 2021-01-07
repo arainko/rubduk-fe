@@ -7,6 +7,7 @@ import { RootState } from "../../../Interfaces/interfaces";
 import theme from "../../../theme";
 import Navbar from "../../Navbar/Nabvar"
 import PostTabs from "../../PostTabs/PostTabs";
+import PostWriter from "../../PostWriter/PostWriter";
 
 const FeedPage = () => {
     const sessionUser = useSelector((state: RootState) => state.sessionUser);
@@ -16,6 +17,7 @@ const FeedPage = () => {
         <CssBaseline />
         <Navbar />
             <div id={"post-area-feed"}>
+                <PostWriter isInFeed={true} userId={sessionUser.id}/>
                 <Grid container justify="center">
                     <PostTabs isInFeed={true} userId={sessionUser.id}/>
                 </Grid>
