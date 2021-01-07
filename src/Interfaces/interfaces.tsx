@@ -10,6 +10,7 @@ export interface RootState {
     sessionUser: any,
     media: Array<any>;
     isSpinnerInMedia: boolean;
+    mediaToUpload: any;
 }
 
 export interface PostAreaProps {

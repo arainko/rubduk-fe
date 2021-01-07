@@ -10,7 +10,8 @@ import theme from '../../theme'
 import { useDispatch, useSelector } from 'react-redux';
 import { PostAPI } from '../../Api/PostAPI';
 import { RootState } from '../../Interfaces/interfaces';
-import { postsLoaded, postsNotLoaded, setPosts } from '../Redux/Actions';
+import { mediaLoaded, mediaNotLoaded, postsLoaded, postsNotLoaded, resetMediaToUpload, setMedia, setMediaToUpload, setPosts } from '../Redux/Actions';
+import { MediaAPI } from '../../Api/MediaAPI';
 
 const useStyles = makeStyles({
   root: {
@@ -43,26 +44,57 @@ const PostWriter = (props: PostWriterProps) => {
   const dispatch = useDispatch();
 
   const handlePostPost = async () => {
-    dispatch(postsNotLoaded())
-    await PostAPI.postPost(sessionUser.id, postValue, GoogleTokenId)
-    
-    if (props.isInFeed) {
-      PostAPI.fetchPosts()
-      .then(async (data) => {
-        await dispatch(setPosts(data))
-      })
+    if (mediaToUpload === null) {
+      dispatch(postsNotLoaded())
+      await PostAPI.postPost(sessionUser.id, postValue, GoogleTokenId)
+      if (props.isInFeed) {
+        PostAPI.fetchPosts()
+        .then(async (data) => {
+          await dispatch(setPosts(data))
+        })
+      } else {
+        PostAPI.fetchPostsByUserId(props.userId)
+        .then(async (data) => {
+          await dispatch(setPosts(data))
+        })
+      }
+      dispatch(postsLoaded())
     } else {
-      PostAPI.fetchPostsByUserId(props.userId)
-      .then(async (data) => {
-        await dispatch(setPosts(data))
-      })
+      dispatch(mediaNotLoaded())
+      await MediaAPI.postMediaByUserToken(GoogleTokenId, mediaToUpload, postValue)
+      if (props.isInFeed) {
+        // TODO get media by friends if in feed
+        MediaAPI.fetchMediaByUserId(props.userId)
+        .then(async (data) => {
+          await dispatch(setMedia(data))
+        })
+      } else {
+        MediaAPI.fetchMediaByUserId(props.userId)
+        .then(async (data) => {
+          await dispatch(setMedia(data))
+        })
+      }
+      dispatch(mediaLoaded())
+      dispatch(resetMediaToUpload())
     }
-    dispatch(postsLoaded())
+  }
+
+  const handleFileInput = async (e: any) => {
+    await MediaAPI.convertToBase64(e.target.files[0])
+    .then(async (data: any) => {
+      var strippedData = data.replace("data:image/png;base64,", "")
+      console.log(strippedData)
+      dispatch(setMediaToUpload(strippedData))
+    })
+    .catch((error) => {
+      console.log(error)
+    })
   }
 
   const [postValue, setPostValue] = useState('')
   const sessionUser = useSelector((state: RootState) => state.sessionUser);
   const GoogleTokenId = useSelector((state: RootState) => state.GoogleTokenId);
+  const mediaToUpload = useSelector((state: RootState) => state.mediaToUpload);
 
   return (
     <Card className={classes.card}>
@@ -72,7 +104,7 @@ const PostWriter = (props: PostWriterProps) => {
             autoFocus
             margin="dense"
             id="post-textfield"
-            label="Write your post"
+            label="Write your post or send media with description"
             type="text"
             multiline
             rows={6}
@@ -95,7 +127,19 @@ const PostWriter = (props: PostWriterProps) => {
       </CardActionArea>
       <CardActions>
         <Button size="small" className={classes.button} onClick={() => handlePostPost()}>
-          Post!
+          Send!
+        </Button>
+        <Button
+          component="label"
+          size="small" className={classes.button}
+        >
+          Upload a file
+          <input
+            onChange={handleFileInput}
+            type="file"
+            accept="image/*"
+            hidden
+          />
         </Button>
         <Button size="small" className={classes.button} onClick={() => setPostValue("")}>
           Cancel

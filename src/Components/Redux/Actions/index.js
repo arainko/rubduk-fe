@@ -144,3 +144,20 @@ export const mediaNotLoaded = () => {
         payload: null
     }
 }
+
+// media to upload
+
+
+export const setMediaToUpload = (media) => {
+    return {
+        type: 'SET_MEDIA_UPLOAD',
+        payload: media
+    }
+}
+
+export const resetMediaToUpload = () => {
+    return {
+        type: 'RESET_MEDIA_UPLOAD',
+        payload: null
+    }
+}

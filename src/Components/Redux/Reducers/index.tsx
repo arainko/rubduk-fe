@@ -10,6 +10,7 @@ import setSessionUserReducer from './setSessionUser'
 import {combineReducers} from 'redux';
 import mediaSpinner from './mediaAreaSpinner';
 import setMediaReducer from './setMedia';
+import setMediaToUploadReducer from './setMediaToUpload';
 
 const allReducers = combineReducers({
     isLogged: isLoggedReducer,
@@ -22,7 +23,8 @@ const allReducers = combineReducers({
     GoogleTokenId: setGoogleTokenIdReducer,
     sessionUser: setSessionUserReducer,
     media: setMediaReducer,
-    isSpinnerInMedia: mediaSpinner
+    isSpinnerInMedia: mediaSpinner,
+    mediaToUpload: setMediaToUploadReducer
 })
 
 export default allReducers
