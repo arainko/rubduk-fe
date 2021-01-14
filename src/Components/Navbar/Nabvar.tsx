@@ -144,6 +144,17 @@ const Navbar = () => {
                 </Typography>
               </ListItemText>
             </ListItem>
+            <ListItem button key={'Friends'}>
+              <ListItemIcon>
+                <DynamicFeedIcon color="secondary" />
+                </ListItemIcon>
+              <ListItemText>
+                <Typography color="secondary">
+                  <MaterialLink to={'/Friends'} color="secondary" underline="none" component={Link}>Friends</MaterialLink>
+                </Typography>
+              </ListItemText>
+            </ListItem>
+            <Divider/>
             <ListItem button key={'Logout'}>
               <ListItemIcon>
                 <DynamicFeedIcon color="secondary" />
