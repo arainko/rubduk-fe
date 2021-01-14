@@ -161,3 +161,35 @@ export const resetMediaToUpload = () => {
         payload: null
     }
 }
+
+// friends
+
+export const setFriends = (friends) => {
+    return {
+        type: 'SET_FRIENDS',
+        payload: friends
+    }
+}
+
+export const resetFriends = () => {
+    return {
+        type: 'RESET_FRIENDS',
+        payload: null
+    }
+}
+
+// friends spinner
+
+export const friendsLoaded = () => {
+    return {
+        type: 'FRIENDS_LOADED',
+        payload: null
+    }
+}
+
+export const friendsNotLoaded = () => {
+    return {
+        type: 'FRIENDS_NOT_LOADED',
+        payload: null
+    }
+}

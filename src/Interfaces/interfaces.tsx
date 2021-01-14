@@ -8,9 +8,11 @@ export interface RootState {
     isSpinnerInComments: boolean,
     GoogleTokenId: string,
     sessionUser: any,
-    media: Array<any>;
-    isSpinnerInMedia: boolean;
-    mediaToUpload: any;
+    media: Array<any>,
+    isSpinnerInMedia: boolean,
+    mediaToUpload: any,
+    friends: any,
+    isSpinnerInFriends: boolean
 }
 
 export interface PostAreaProps {

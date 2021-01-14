@@ -10,6 +10,7 @@ import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ContactsIcon from '@material-ui/icons/Contacts';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -146,7 +147,7 @@ const Navbar = () => {
             </ListItem>
             <ListItem button key={'Friends'}>
               <ListItemIcon>
-                <DynamicFeedIcon color="secondary" />
+                <ContactsIcon color="secondary" />
                 </ListItemIcon>
               <ListItemText>
                 <Typography color="secondary">

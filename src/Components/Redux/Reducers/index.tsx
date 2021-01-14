@@ -11,6 +11,8 @@ import {combineReducers} from 'redux';
 import mediaSpinner from './mediaAreaSpinner';
 import setMediaReducer from './setMedia';
 import setMediaToUploadReducer from './setMediaToUpload';
+import setFriendsReducer from './setFriends';
+import friendsSpinner from './friendsSpinner';
 
 const allReducers = combineReducers({
     isLogged: isLoggedReducer,
@@ -24,7 +26,9 @@ const allReducers = combineReducers({
     sessionUser: setSessionUserReducer,
     media: setMediaReducer,
     isSpinnerInMedia: mediaSpinner,
-    mediaToUpload: setMediaToUploadReducer
+    mediaToUpload: setMediaToUploadReducer,
+    friends: setFriendsReducer,
+    isSpinnerInFriends: friendsSpinner
 })
 
 export default allReducers
