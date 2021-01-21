@@ -22,8 +22,8 @@ const MyFriends = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const GoogleTokenId = useSelector((state: RootState) => state.GoogleTokenId);
-
     const friends = useSelector((state: RootState) => state.friends);
+    const sessionUser = useSelector((state: RootState) => state.sessionUser);
     const isSpinnerVisible = useSelector((state: RootState) => state.isSpinnerInFriends);
 
     useEffect(() => {
@@ -33,7 +33,7 @@ const MyFriends = () => {
         .fetchFriends(GoogleTokenId)
             .then(async (data) =>
             {
-                await dispatch(setFriends(data))
+                await dispatch(setFriends(data.filter((user: { email: any; }) => user.email !== sessionUser.email)))
             })
         dispatch(friendsLoaded())
     }, [dispatch]);

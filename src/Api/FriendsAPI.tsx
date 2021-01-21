@@ -10,7 +10,11 @@ const fetchFriends = (token: string) => axios.get(
     headerJsonAuthorization(token)
     )
     .then(res => {
-    return res.data.entities;
+
+        var friends = res.data.entities
+        return friends.flatMap((val: { fromUser: any; toUser: any; }) =>
+            [val.fromUser, val.toUser]
+        )
 })
 
 const addFriend = (friendId: number, token: string) => axios.post(
@@ -25,7 +29,33 @@ return res.data;
 const fetchSentInvites = (token: string) => axios.get(
     config.apiURL + 'friends/pending/sent',
     headerJsonAuthorizationOnly(token)
-)
+    ).then(res => {
+        return res.data.entities;
+    })
+
+const fetchIncomingInvites = (token: string) => axios.get(
+    config.apiURL + 'friends/pending',
+    headerJsonAuthorizationOnly(token)
+    ).then(res => {
+        return res.data.entities;
+    })
+
+const acceptInvite = (inviteId: number, token: string) => axios.post(
+    config.apiURL + 'friends/accept/' + inviteId,
+    null,
+    headerJsonAuthorizationOnly(token)
+    ).then(res => {
+        return res.data.entities;
+    })
+
+const declineInvite = (inviteId: number, token: string) => axios.post(
+    config.apiURL + 'friends/reject/' + inviteId,
+    null,
+    headerJsonAuthorizationOnly(token)
+    ).then(res => {
+        return res.data.entities;
+    })
+    
 
 const headerJsonAuthorizationOnly = (authToken: String) => {
     return {
@@ -55,5 +85,5 @@ const headerJsonConfiguration = (userId: number, authToken: String) => {
 }
 
 export const FriendsAPI = {
-    fetchFriends, addFriend, fetchSentInvites
+    fetchFriends, addFriend, fetchSentInvites, fetchIncomingInvites, acceptInvite, declineInvite
 };

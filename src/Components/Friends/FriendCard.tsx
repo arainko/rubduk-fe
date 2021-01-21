@@ -46,7 +46,7 @@ const FriendCard = (props: FriendCardInterface) => {
         console.log(data)
         alert("Request sent!")
       })
-      .catch((error) => alert(error.response.data.message))
+      .catch((error) => alert(error.response.data))
     }
 
     const showButtons = () => {

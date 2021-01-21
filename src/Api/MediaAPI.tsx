@@ -3,7 +3,7 @@ import config from '../appConfig.json'
 
 const jsonify = (text: string, base64media: string) => {
     return JSON.stringify({
-        base64Image: base64media,
+        base64Image: base64media.replace("data:image/jpeg;base64,", ""),
         description: text 
     })
 }

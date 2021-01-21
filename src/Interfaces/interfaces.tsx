@@ -12,7 +12,9 @@ export interface RootState {
     isSpinnerInMedia: boolean,
     mediaToUpload: any,
     friends: Array<any>,
-    isSpinnerInFriends: boolean
+    isSpinnerInFriends: boolean,
+    invites: Array<any>,
+    isSpinnerInInvites: boolean
 }
 
 export interface PostAreaProps {

@@ -13,6 +13,8 @@ import setMediaReducer from './setMedia';
 import setMediaToUploadReducer from './setMediaToUpload';
 import setFriendsReducer from './setFriends';
 import friendsSpinner from './friendsSpinner';
+import setInvitesReducer from './setInvitesReducer';
+import invitesSpinner from './isSpinnerInInvitesReducer';
 
 const allReducers = combineReducers({
     isLogged: isLoggedReducer,
@@ -28,7 +30,9 @@ const allReducers = combineReducers({
     isSpinnerInMedia: mediaSpinner,
     mediaToUpload: setMediaToUploadReducer,
     friends: setFriendsReducer,
-    isSpinnerInFriends: friendsSpinner
+    isSpinnerInFriends: friendsSpinner,
+    invites: setInvitesReducer,
+    isSpinnerInInvites: invitesSpinner
 })
 
 export default allReducers

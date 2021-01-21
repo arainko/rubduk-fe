@@ -11,6 +11,7 @@ import { RootState } from '../../Interfaces/interfaces';
 import { useDispatch, useSelector } from 'react-redux';
 import { mediaNotLoaded, setMedia, mediaLoaded } from '../Redux/Actions';
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner'
+import { Typography } from '@material-ui/core';
 
 interface MediaAreaProps {
     isInFeed: boolean;
@@ -68,7 +69,7 @@ const MediaArea = (props: MediaAreaProps) => {
 
     const showMediaOrInfo = () => {
         if (media.length === 0) {
-            return <span>DUPA</span>
+            return <Typography>No media to show.</Typography>
         } else {
             return (
                 <GridList cellHeight={180} className={classes.gridList}>

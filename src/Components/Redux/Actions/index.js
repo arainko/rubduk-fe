@@ -193,3 +193,35 @@ export const friendsNotLoaded = () => {
         payload: null
     }
 }
+
+// invites
+
+export const setInvites = (invites) => {
+    return {
+        type: 'SET_INVITES',
+        payload: invites
+    }
+}
+
+export const resetInvites = () => {
+    return {
+        type: 'RESET_INVITES',
+        payload: null
+    }
+}
+
+// invites spinner
+
+export const invitesLoaded = () => {
+    return {
+        type: 'INVITES_LOADED',
+        payload: null
+    }
+}
+
+export const invitesNotLoaded = () => {
+    return {
+        type: 'INVITES_NOT_LOADED',
+        payload: null
+    }
+}

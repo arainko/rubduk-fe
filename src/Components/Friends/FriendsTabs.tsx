@@ -1,8 +1,10 @@
 import { AppBar, Box, Tab, Tabs, Theme } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import React from 'react';
+import IncomingInvites from './IncomingInvites';
 import MyFriends from './MyFriends';
 import SearchFriendsArea from './SearchFriendsArea';
+import SentInvites from './SentInvites';
 
 
 interface TabPanelProps {
@@ -74,10 +76,10 @@ const FriendsTabs = () => {
           <SearchFriendsArea/>
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <div>sss</div>
+          <IncomingInvites/>
         </TabPanel>
         <TabPanel value={value} index={3}>
-          <div>sss</div>
+          <SentInvites/>
         </TabPanel>
       </div>
     );

@@ -42,13 +42,17 @@ interface PostWriterProps {
 const PostWriter = (props: PostWriterProps) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [postValue, setPostValue] = useState('')
+  const sessionUser = useSelector((state: RootState) => state.sessionUser);
+  const GoogleTokenId = useSelector((state: RootState) => state.GoogleTokenId);
+  const mediaToUpload = useSelector((state: RootState) => state.mediaToUpload);
 
   const handlePostPost = async () => {
     if (mediaToUpload === null) {
       dispatch(postsNotLoaded())
       await PostAPI.postPost(sessionUser.id, postValue, GoogleTokenId)
       if (props.isInFeed) {
-        PostAPI.fetchPosts()
+        PostAPI.fetchPostsByFriends(GoogleTokenId)
         .then(async (data) => {
           await dispatch(setPosts(data))
         })
@@ -61,11 +65,18 @@ const PostWriter = (props: PostWriterProps) => {
       dispatch(postsLoaded())
     } else {
       dispatch(mediaNotLoaded())
-      await MediaAPI.postMediaByUserToken(GoogleTokenId, mediaToUpload, postValue)
+      await MediaAPI
+      .postMediaByUserToken(GoogleTokenId, mediaToUpload, postValue)
+      .catch((error) => {
+        alert(error.response.data)
+      })
       if (props.isInFeed) {
         MediaAPI.fetchMediaByFriends(GoogleTokenId)
         .then(async (data) => {
           await dispatch(setMedia(data))
+        })
+        .catch((error) => {
+          alert(error.response.data)
         })
       } else {
         MediaAPI.fetchMediaByUserId(props.userId)
@@ -86,14 +97,9 @@ const PostWriter = (props: PostWriterProps) => {
       dispatch(setMediaToUpload(strippedData))
     })
     .catch((error) => {
-      console.log(error)
+      alert(error.response.data)
     })
   }
-
-  const [postValue, setPostValue] = useState('')
-  const sessionUser = useSelector((state: RootState) => state.sessionUser);
-  const GoogleTokenId = useSelector((state: RootState) => state.GoogleTokenId);
-  const mediaToUpload = useSelector((state: RootState) => state.mediaToUpload);
 
   return (
     <Card className={classes.card}>
