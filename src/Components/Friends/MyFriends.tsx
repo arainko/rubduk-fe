@@ -6,7 +6,7 @@ import { FriendsAPI } from '../../Api/FriendsAPI';
 import { RootState } from '../../Interfaces/interfaces';
 import theme from '../../theme';
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
-import { friendsLoaded, friendsNotLoaded, setFriends } from '../Redux/Actions';
+import { friendsLoaded, friendsNotLoaded, resetFriends, setFriends } from '../Redux/Actions';
 import FriendCard from './FriendCard';
 
 const useStyles = makeStyles({
@@ -28,6 +28,7 @@ const MyFriends = () => {
 
     useEffect(() => {
         dispatch(friendsNotLoaded())
+        dispatch(resetFriends())
         FriendsAPI
         .fetchFriends(GoogleTokenId)
             .then(async (data) =>
@@ -43,6 +44,8 @@ const MyFriends = () => {
         } else {
             return friends.map((friend: any) => 
             <FriendCard
+            isInvite={false}
+            isSearched={false}
             key={'post' + friend.id}
             id={friend.id}
             name={friend.name}

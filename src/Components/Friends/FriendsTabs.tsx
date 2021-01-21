@@ -2,6 +2,7 @@ import { AppBar, Box, Tab, Tabs, Theme } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import React from 'react';
 import MyFriends from './MyFriends';
+import SearchFriendsArea from './SearchFriendsArea';
 
 
 interface TabPanelProps {
@@ -57,22 +58,25 @@ const FriendsTabs = () => {
         <AppBar position="static">
           <Tabs value={value} 
           onChange={handleChange} 
-          aria-label="simple tabs example"
           variant="fullWidth"
           textColor="secondary"
           indicatorColor="secondary">
             <Tab label="My friends" {...a11yProps(0)} />
             <Tab label="Search" {...a11yProps(1)} />
-            <Tab label="Invites" {...a11yProps(2)} />
+            <Tab label="Incoming invites" {...a11yProps(2)} />
+            <Tab label="Sent invites" {...a11yProps(3)} />
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
             <MyFriends/>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <div>sss</div>
+          <SearchFriendsArea/>
         </TabPanel>
         <TabPanel value={value} index={2}>
+          <div>sss</div>
+        </TabPanel>
+        <TabPanel value={value} index={3}>
           <div>sss</div>
         </TabPanel>
       </div>

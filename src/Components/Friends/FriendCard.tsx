@@ -1,14 +1,18 @@
-import { makeStyles, Theme, createStyles, Card, CardContent, CardMedia, Typography } from '@material-ui/core';
+import { makeStyles, Theme, createStyles, Card, CardContent, CardMedia, Typography, CardActions, Button } from '@material-ui/core';
 import { Link as MaterialLink } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import React from 'react'
+import { FriendsAPI } from '../../Api/FriendsAPI';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../Interfaces/interfaces';
 
 interface FriendCardInterface {
     id: number,
     name: string,
     lastName: string,
-    dateOfBirth: Date
+    dateOfBirth: Date,
+    isSearched: boolean,
+    isInvite: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -33,6 +37,42 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const FriendCard = (props: FriendCardInterface) => {
     const classes = useStyles();
+    const GoogleTokenId = useSelector((state: RootState) => state.GoogleTokenId);
+
+    const handleAdd = () => {
+      FriendsAPI
+      .addFriend(props.id, GoogleTokenId)
+      .then((data) => {
+        console.log(data)
+        alert("Request sent!")
+      })
+      .catch((error) => alert(error.response.data.message))
+    }
+
+    const showButtons = () => {
+      if (props.isInvite) {
+        return (
+          <CardActions>
+            <Button variant="outlined" size="small" color="secondary">Accept</Button>
+            <Button variant="outlined" size="small" color="secondary">Decline</Button>
+          </CardActions>
+        )
+      } else if (props.isSearched) {
+        return (
+          <CardActions>
+            <Button 
+            variant="outlined" 
+            size="small" 
+            color="secondary"
+            onClick={handleAdd}
+            >Add
+            </Button>
+          </CardActions>
+        )
+      } else {
+        return <div></div>
+      }
+    }
 
     return (
     <Card className={classes.root}>
@@ -52,6 +92,7 @@ const FriendCard = (props: FriendCardInterface) => {
                 {props.dateOfBirth}
             </Typography>
         </CardContent>
+        {showButtons()}
         </div>
     </Card>
     );

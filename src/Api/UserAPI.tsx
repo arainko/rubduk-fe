@@ -13,6 +13,22 @@ const headerJsonConfiguration = () => {
     }
 }
 
+const headerJsonAuthorization = (authToken: String) => {
+    return {
+        headers: {
+            'Authorization': authToken
+        }
+    }
+}
+
+const searchUsersByName = (token: string, query: string) => axios.get(
+    config.apiURL + 'users?name=' + query,
+    headerJsonAuthorization(token)
+    )
+    .then(res => {
+    return res.data.entities;
+})
+
 const fetchUserWithId = (userId: number) => axios.get(config.apiURL + 'users/' + userId)
     .then(res => {
     return res.data;
@@ -28,5 +44,5 @@ const registerNewUser = (tokenId: String) => axios.post(
 })
 
 export const UserAPI = {
-    fetchUserWithId, registerNewUser
+    fetchUserWithId, registerNewUser, searchUsersByName
 };

@@ -1,4 +1,4 @@
-import { createStyles, Grid, makeStyles, Paper, Theme } from "@material-ui/core";
+import { createStyles, Grid, makeStyles, Theme } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography/Typography";

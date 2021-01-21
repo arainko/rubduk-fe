@@ -11,7 +11,7 @@ export interface RootState {
     media: Array<any>,
     isSpinnerInMedia: boolean,
     mediaToUpload: any,
-    friends: any,
+    friends: Array<any>,
     isSpinnerInFriends: boolean
 }
 

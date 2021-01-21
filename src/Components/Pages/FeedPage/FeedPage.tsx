@@ -15,7 +15,7 @@ const FeedPage = () => {
     const history = useHistory();
 
     useEffect(() => {
-        if (sessionUser === null) {
+        if (sessionUser === null || sessionUser === undefined) {
             history.push({
                 pathname:  "/"
             });
