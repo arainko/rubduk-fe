@@ -40,6 +40,7 @@ const MediaArea = (props: MediaAreaProps) => {
     const classes = useStyles();
 
     const dispatch = useDispatch();
+    const GoogleTokenId = useSelector((state: RootState) => state.GoogleTokenId);
 
     const media = useSelector((state: RootState) => state.media);
     const isSpinnerVisible = useSelector((state: RootState) => state.isSpinnerInMedia);
@@ -48,7 +49,7 @@ const MediaArea = (props: MediaAreaProps) => {
         dispatch(mediaNotLoaded())
         if (props.isInFeed) {
             MediaAPI
-            .fetchMediaByUserId(props.userId) //TODO this will have to be changed to fetchmediabyfriends when avaliable
+            .fetchMediaByFriends(GoogleTokenId)
             .then(async (data) =>
             {
                 await dispatch(setMedia(data))

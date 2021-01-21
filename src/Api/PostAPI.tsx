@@ -6,6 +6,14 @@ const fetchPosts = () => axios.get( config.apiURL + 'posts')
     return res.data.entities;
 })
 
+const fetchPostsByFriends = (authToken: string) => axios.get(
+    config.apiURL + 'feed/posts',
+    headerJsonAuthorization(authToken)
+    )
+    .then(res => {
+    return res.data.entities;
+})
+
 const fetchPostsByUserId = (userId: number) => axios.get(config.apiURL + 'posts?userId=' + userId)
     .then(res => {
     return res.data.entities;
@@ -21,6 +29,14 @@ const headerJsonConfiguration = (userId: number, authToken: String) => {
             'User-id': userId,
             'Authorization': authToken,
             'content-type': 'application/json'
+        }
+    }
+}
+
+const headerJsonAuthorization = (authToken: String) => {
+    return {
+        headers: {
+            'Authorization': authToken
         }
     }
 }
@@ -52,5 +68,5 @@ const updatePost = (
     }
 
 export const PostAPI = {
-    fetchPosts, fetchPostsByUserId, postPost, updatePost
+    fetchPosts, fetchPostsByUserId, postPost, updatePost, fetchPostsByFriends
 };

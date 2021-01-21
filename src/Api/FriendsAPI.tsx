@@ -1,15 +1,24 @@
 import axios from 'axios';
 import config from '../appConfig.json'
 
-const fetchFriends = () => axios.get(config.apiURL + 'users')
+const fetchFriends = (token: string) => axios.get(
+    config.apiURL + 'friends',
+    headerJsonAuthorization(token)
+    )
     .then(res => {
     return res.data.entities;
 })
 
-//TODO this is mock data, needs to be real friends
-
 const jsonify = (text: String) => {
     return JSON.stringify({ contents: text })
+}
+
+const headerJsonAuthorization = (authToken: String) => {
+    return {
+        headers: {
+            'Authorization': authToken
+        }
+    }
 }
 
 const headerJsonConfiguration = (userId: number, authToken: String) => {

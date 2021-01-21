@@ -63,8 +63,7 @@ const PostWriter = (props: PostWriterProps) => {
       dispatch(mediaNotLoaded())
       await MediaAPI.postMediaByUserToken(GoogleTokenId, mediaToUpload, postValue)
       if (props.isInFeed) {
-        // TODO get media by friends if in feed
-        MediaAPI.fetchMediaByUserId(props.userId)
+        MediaAPI.fetchMediaByFriends(GoogleTokenId)
         .then(async (data) => {
           await dispatch(setMedia(data))
         })

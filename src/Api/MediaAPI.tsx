@@ -17,7 +17,23 @@ const headerJsonConfiguration = (authToken: string) => {
     }
 }
 
+const headerJsonAuthorization = (authToken: string) => {
+    return {
+        headers: {
+            'Authorization': authToken
+        }
+    }
+}
+
 const fetchMediaByUserId = (userId: number) => axios.get(config.apiURL + 'users/' + userId + '/media')
+    .then(res => {
+    return res.data.entities;
+})
+
+const fetchMediaByFriends = (token: string) => axios.get(
+    config.apiURL + 'feed/media',
+    headerJsonAuthorization(token)
+    )
     .then(res => {
     return res.data.entities;
 })
@@ -46,5 +62,5 @@ const convertToBase64 = (file: any) => {
 }
 
 export const MediaAPI = {
-    fetchMediaByUserId, postMediaByUserToken, convertToBase64
+    fetchMediaByUserId, postMediaByUserToken, fetchMediaByFriends, convertToBase64
 };

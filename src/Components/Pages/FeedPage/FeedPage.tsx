@@ -1,8 +1,9 @@
 import { Grid } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/core/styles";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { RootState } from "../../../Interfaces/interfaces";
 import theme from "../../../theme";
 import Navbar from "../../Navbar/Nabvar"
@@ -11,6 +12,15 @@ import PostWriter from "../../PostWriter/PostWriter";
 
 const FeedPage = () => {
     const sessionUser = useSelector((state: RootState) => state.sessionUser);
+    const history = useHistory();
+
+    useEffect(() => {
+        if (sessionUser === null) {
+            history.push({
+                pathname:  "/"
+            });
+        }
+    });
 
     return (
     <ThemeProvider theme={theme}>

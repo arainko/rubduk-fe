@@ -21,6 +21,7 @@ const useStyles = makeStyles({
 const MyFriends = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const GoogleTokenId = useSelector((state: RootState) => state.GoogleTokenId);
 
     const friends = useSelector((state: RootState) => state.friends);
     const isSpinnerVisible = useSelector((state: RootState) => state.isSpinnerInFriends);
@@ -28,7 +29,7 @@ const MyFriends = () => {
     useEffect(() => {
         dispatch(friendsNotLoaded())
         FriendsAPI
-        .fetchFriends()
+        .fetchFriends(GoogleTokenId)
             .then(async (data) =>
             {
                 await dispatch(setFriends(data))
@@ -37,7 +38,7 @@ const MyFriends = () => {
     }, [dispatch]);
 
     const showFriends = (() => {
-        if (friends === null) {
+        if (friends === null || friends.length === 0) {
             return <Typography className={classes.noPosts}>Send Your first invite!</Typography>
         } else {
             return friends.map((friend: any) => 

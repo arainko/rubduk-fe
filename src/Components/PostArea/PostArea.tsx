@@ -23,7 +23,7 @@ const PostArea = (props: PostAreaProps) => {
     const classes = useStyles();
 
     const dispatch = useDispatch();
-
+    const GoogleTokenId = useSelector((state: RootState) => state.GoogleTokenId);
     const posts = useSelector((state: RootState) => state.posts);
     const isSpinnerVisible = useSelector((state: RootState) => state.isSpinnerInPosts);
 
@@ -31,7 +31,7 @@ const PostArea = (props: PostAreaProps) => {
         dispatch(postsNotLoaded())
         if (props.isInFeed) {
             PostAPI
-            .fetchPosts() //TODO this will have to be changed to fetchpostsbyfriends when avaliable
+            .fetchPostsByFriends(GoogleTokenId)
             .then(async (data) =>
             {
                 await dispatch(setPosts(data))
