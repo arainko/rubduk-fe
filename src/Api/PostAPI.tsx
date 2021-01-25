@@ -67,6 +67,24 @@ const updatePost = (
         })
     }
 
+const likePost = (postId: number, authTokenId: string) => {
+    return likePostOrNot(postId, authTokenId, "like");
+}
+
+const unlikePost = (postId: number, authTokenId: string) => {
+    return likePostOrNot(postId, authTokenId, "unlike");
+}
+
+const likePostOrNot = (postId: number, authTokenId: string, endUrl: string) =>
+        axios.put(
+            config.apiURL + 'posts/' + postId + "/" + endUrl, 
+            null, 
+            headerJsonAuthorization(authTokenId)
+            )
+        .then(res => {
+        return res;
+        })
+
 export const PostAPI = {
-    fetchPosts, fetchPostsByUserId, postPost, updatePost, fetchPostsByFriends
+    fetchPosts, fetchPostsByUserId, postPost, updatePost, fetchPostsByFriends, likePost, unlikePost
 };

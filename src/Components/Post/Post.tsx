@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux';
 import { PostProps, RootState } from '../../Interfaces/interfaces';
 import EditDialog from '../Dialogs/EditDialog/EditDialog';
 import DeleteDialog from '../Dialogs/DeleteDialog/DeleteDialog';
+import { PostAPI } from '../../Api/PostAPI';
 
 const useStyles = makeStyles({
     subheader: {
@@ -34,6 +35,7 @@ const Post = (props: PostProps) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const sessionUser = useSelector((state: RootState) => state.sessionUser);
     const GoogleTokenId = useSelector((state: RootState) => state.GoogleTokenId);
+    const [likes, setLikes] = React.useState(props.likes);
     const classes = useStyles();
 
     const showMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -56,6 +58,26 @@ const Post = (props: PostProps) => {
         }
     }
 
+    const likePost = () => {
+        PostAPI
+        .likePost(props.postId, GoogleTokenId)
+        .then((data) => {
+            alert("Post liked!")
+            setLikes(likes + 1)
+        })
+        .catch((error: any) => alert(error.response.data))
+    }
+
+    const unlikePost = () => {
+        PostAPI
+        .unlikePost(props.postId, GoogleTokenId)
+        .then((data) => {
+            alert("Post unliked!")
+            setLikes(likes - 1)
+        })
+        .catch((error: any) => alert(error.response.data))
+    }
+
     return (
         <Card className={classes.card}>
             <CardHeader 
@@ -74,13 +96,16 @@ const Post = (props: PostProps) => {
                 </CardContent>
             </CardActionArea>
         <CardActions>
-            <Button size="small" variant="contained" className={classes.button}>
+            <Button size="small" variant="contained" className={classes.button} onClick={likePost}>
                 Like
             </Button>
-            <CommentsModal postId={props.postId} userId={props.userId}/>
-            <Button size="small" variant="contained" className={classes.button}>
-                Share
+            <Button size="small" variant="contained" className={classes.button} onClick={unlikePost}>
+                Unlike
             </Button>
+            <CommentsModal postId={props.postId} userId={props.userId}/>
+            <Typography>
+                Liked by {likes}
+            </Typography>
         </CardActions>
         <Menu
             id="simple-menu"

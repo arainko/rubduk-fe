@@ -61,6 +61,7 @@ const PostArea = (props: PostAreaProps) => {
                 dateAdded={post.dateAdded}
                 userLastName={post.userLastname} 
                 userName={post.username}
+                likes={post.likes}
                 isInFeed={props.isInFeed}/>)
         }
     })

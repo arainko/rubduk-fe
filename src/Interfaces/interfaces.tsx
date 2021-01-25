@@ -31,7 +31,8 @@ export interface PostProps {
     userLastName: string,
     contents: string,
     dateAdded: Date,
-    isInFeed: boolean
+    isInFeed: boolean,
+    likes: number
 }
 
 export interface PostProps {
