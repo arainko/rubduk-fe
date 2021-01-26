@@ -8,6 +8,8 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../Interfaces/interfaces';
 import EditDialog from '../Dialogs/EditDialog/EditDialog';
 import DeleteDialog from '../Dialogs/DeleteDialog/DeleteDialog';
+import { Link as MaterialLink } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
     comment: {
@@ -63,8 +65,12 @@ const Comment = (props: CommentProps) => {
 
     return (
         <Card className={classes.whole}>
+            <Typography component="h5" variant="h6" color="secondary">
+            <MaterialLink to={'/Profile/user=' + props.userId} color="secondary" underline="none" component={Link}>
+                {props.userName} {props.userLastName}
+            </MaterialLink>
+            </Typography>
             <CardHeader
-            title={props.userName + " " + props.userLastName}
             subheader={"added " + props.dateAdded}
             action={
                 showAction()

@@ -16,6 +16,8 @@ import EditDialog from '../Dialogs/EditDialog/EditDialog';
 import DeleteDialog from '../Dialogs/DeleteDialog/DeleteDialog';
 import { PostAPI } from '../../Api/PostAPI';
 import { useSnackbar } from '../UseSnackBar/useSnackbar';
+import { Link as MaterialLink } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
     subheader: {
@@ -82,9 +84,13 @@ const Post = (props: PostProps) => {
     
     return (
         <Card className={classes.card}>
+            <Typography component="h5" variant="h5" color="secondary">
+            <MaterialLink to={'/Profile/user=' + props.userId} color="secondary" underline="none" component={Link}>
+                {props.userName} {props.userLastName}
+            </MaterialLink>
+            </Typography>
             <CardHeader 
                 className={classes.subheader} color="white"
-                title={props.userName + " " + props.userLastName}
                 subheader={"added " + props.dateAdded}
                 action={
                     showAction()

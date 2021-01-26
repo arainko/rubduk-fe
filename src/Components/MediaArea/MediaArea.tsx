@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { mediaNotLoaded, setMedia, mediaLoaded } from '../Redux/Actions';
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner'
 import { Typography } from '@material-ui/core';
+import ImageDialog from '../Dialogs/ImageDialog/ImageDialog';
 
 interface MediaAreaProps {
     isInFeed: boolean;
@@ -83,9 +84,7 @@ const MediaArea = (props: MediaAreaProps) => {
                             title={tile.dateAdded}
                             subtitle={<span>{tile.description}</span>}
                             actionIcon={
-                                <IconButton aria-label={`link ${tile.link}`} className={classes.icon}>
-                                    <InfoIcon />
-                                </IconButton>
+                                <ImageDialog imgLink={tile.link}/>
                             }
                         />
                     </GridListTile>
