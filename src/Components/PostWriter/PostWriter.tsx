@@ -5,13 +5,14 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import { TextField } from '@material-ui/core';
+import { Grid, Snackbar, TextField, Typography } from '@material-ui/core';
 import theme from '../../theme'
 import { useDispatch, useSelector } from 'react-redux';
 import { PostAPI } from '../../Api/PostAPI';
 import { RootState } from '../../Interfaces/interfaces';
 import { mediaLoaded, mediaNotLoaded, postsLoaded, postsNotLoaded, resetMediaToUpload, setMedia, setMediaToUpload, setPosts } from '../Redux/Actions';
 import { MediaAPI } from '../../Api/MediaAPI';
+import { useSnackbar } from '../UseSnackBar/useSnackbar';
 
 const useStyles = makeStyles({
   root: {
@@ -42,24 +43,46 @@ interface PostWriterProps {
 const PostWriter = (props: PostWriterProps) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [postValue, setPostValue] = useState('')
+  const [postValue, setPostValue] = useState('');
+  const [mediaValue, setMediaValue] = useState("No media selected.");
   const sessionUser = useSelector((state: RootState) => state.sessionUser);
   const GoogleTokenId = useSelector((state: RootState) => state.GoogleTokenId);
   const mediaToUpload = useSelector((state: RootState) => state.mediaToUpload);
+  const snackBar = useSnackbar();
+
+  const checkMediaValue = () => {
+    if (mediaValue.length === 0) {
+      return "No media selected."
+    } else {
+      return "sdd"
+    }
+  }
 
   const handlePostPost = async () => {
     if (mediaToUpload === null) {
       dispatch(postsNotLoaded())
-      await PostAPI.postPost(sessionUser.id, postValue, GoogleTokenId)
+      await PostAPI
+      .postPost(sessionUser.id, postValue, GoogleTokenId)
+      .then((data) => snackBar.openSnackbar("Post sent!"))
+      .catch((error) => {
+        snackBar.openSnackbar(error.response.data)
+      })
+
       if (props.isInFeed) {
         PostAPI.fetchPostsByFriends(GoogleTokenId)
         .then(async (data) => {
           await dispatch(setPosts(data))
         })
+        .catch((error) => {
+          snackBar.openSnackbar(error.response.data)
+        })
       } else {
         PostAPI.fetchPostsByUserId(props.userId)
         .then(async (data) => {
           await dispatch(setPosts(data))
+        })
+        .catch((error) => {
+          snackBar.openSnackbar(error.response.data)
         })
       }
       dispatch(postsLoaded())
@@ -67,8 +90,13 @@ const PostWriter = (props: PostWriterProps) => {
       dispatch(mediaNotLoaded())
       await MediaAPI
       .postMediaByUserToken(GoogleTokenId, mediaToUpload, postValue)
+      .then((data) => snackBar.openSnackbar("Post sent!"))
       .catch((error) => {
-        alert(error.response.data)
+        snackBar.openSnackbar(error.response.data)
+      })
+
+      .catch((error) => {
+        snackBar.openSnackbar(error.response.data)
       })
       if (props.isInFeed) {
         MediaAPI.fetchMediaByFriends(GoogleTokenId)
@@ -76,7 +104,7 @@ const PostWriter = (props: PostWriterProps) => {
           await dispatch(setMedia(data))
         })
         .catch((error) => {
-          alert(error.response.data)
+          snackBar.openSnackbar(error.response.data)
         })
       } else {
         MediaAPI.fetchMediaByUserId(props.userId)
@@ -90,15 +118,24 @@ const PostWriter = (props: PostWriterProps) => {
   }
 
   const handleFileInput = async (e: any) => {
-    await MediaAPI.convertToBase64(e.target.files[0])
-    .then(async (data: any) => {
-      var strippedData = data.replace("data:image/png;base64,", "")
-      console.log(strippedData)
-      dispatch(setMediaToUpload(strippedData))
-    })
-    .catch((error) => {
-      alert(error.response.data)
-    })
+    if (e.target.files[0] !== null || e.target.files[0] !== undefined) {
+      await MediaAPI.convertToBase64(e.target.files[0])
+      .then(async (data: any) => {
+        var strippedData = data.replace("data:image/png;base64,", "")
+        dispatch(setMediaToUpload(strippedData))
+        snackBar.openSnackbar("Media added!")
+        setMediaValue(e.target.files[0].name)
+      })
+    }
+  }
+
+  const shortenMediaName = () => {
+    if (mediaValue.length > 30) {
+      var str = mediaValue.split(".")
+      return str[0].substring(0, 30) + "..." + str[1]
+    } else {
+      return mediaValue
+    }
   }
 
   return (
@@ -131,25 +168,35 @@ const PostWriter = (props: PostWriterProps) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" className={classes.button} onClick={() => handlePostPost()}>
-          Send!
-        </Button>
-        <Button
-          component="label"
-          size="small" className={classes.button}
-        >
-          Upload a file
-          <input
-            onChange={handleFileInput}
-            type="file"
-            accept="image/*"
-            hidden
-          />
-        </Button>
-        <Button size="small" className={classes.button} onClick={() => setPostValue("")}>
-          Cancel
-        </Button>
+        <Grid container justify="flex-start">
+          <Button size="small" className={classes.button} onClick={() => handlePostPost()}>
+            Send!
+          </Button>
+          <Button
+            component="label"
+            size="small" className={classes.button}
+          >
+            Upload a file
+            <input
+              onChange={handleFileInput}
+              type="file"
+              accept="image/*"
+              hidden
+            />
+          </Button>
+          <Button size="small" className={classes.button} onClick={() => setPostValue("")}>
+            Cancel
+          </Button>
+        </Grid>
+        <Grid container justify="flex-end">
+        <Typography color="secondary">
+          {mediaValue.length === 0
+          ? "No media selected."
+          : "Added: " + shortenMediaName()}
+        </Typography>
+        </Grid>
       </CardActions>
+      <Snackbar {...snackBar}/>
     </Card>
   );
 }

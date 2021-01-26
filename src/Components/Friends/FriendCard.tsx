@@ -1,10 +1,11 @@
-import { makeStyles, Theme, createStyles, Card, CardContent, CardMedia, Typography, CardActions, Button } from '@material-ui/core';
+import { makeStyles, Theme, createStyles, Card, CardContent, CardMedia, Typography, CardActions, Button, Snackbar } from '@material-ui/core';
 import { Link as MaterialLink } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import React from 'react'
 import { FriendsAPI } from '../../Api/FriendsAPI';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../Interfaces/interfaces';
+import { useSnackbar } from '../UseSnackBar/useSnackbar';
 
 interface FriendCardInterface {
     id: number,
@@ -36,6 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const FriendCard = (props: FriendCardInterface) => {
+  const snackBar = useSnackbar();
     const classes = useStyles();
     const GoogleTokenId = useSelector((state: RootState) => state.GoogleTokenId);
 
@@ -43,10 +45,9 @@ const FriendCard = (props: FriendCardInterface) => {
       FriendsAPI
       .addFriend(props.id, GoogleTokenId)
       .then((data) => {
-        console.log(data)
-        alert("Request sent!")
+        snackBar.openSnackbar("Request sent!")
       })
-      .catch((error) => alert(error.response.data))
+      .catch((error) => snackBar.openSnackbar(error.response.data))
     }
 
     const showButtons = () => {
@@ -94,6 +95,7 @@ const FriendCard = (props: FriendCardInterface) => {
         </CardContent>
         {showButtons()}
         </div>
+        <Snackbar {...snackBar}/>
     </Card>
     );
 }

@@ -20,7 +20,7 @@ const fetchCommentsByPostId = (postId: number) => axios.get(config.apiURL + 'pos
     return res.data.entities;
 })
 
-const postComentInPost = (postId: number, userId: number, contents: String, authTokenId: String) => {
+const postComentInPost = (postId: number, userId: number, contents: String, authTokenId: String) =>
     axios.post(
         config.apiURL + 'posts/' + postId + "/comments", 
         jsonify(contents), 
@@ -29,7 +29,6 @@ const postComentInPost = (postId: number, userId: number, contents: String, auth
     .then(res => {
     return res.data;
     })
-}
 
 const updateComment = (
     postId: number,

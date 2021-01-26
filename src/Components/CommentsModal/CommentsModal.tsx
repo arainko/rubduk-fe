@@ -14,6 +14,8 @@ import Comment from '../Comment/Comment'
 import { CommentsAPI } from '../../Api/CommentsAPI'
 import { setComments, commentsLoaded, commentsNotLoaded } from '../Redux/Actions';
 import { RootState } from '../../Interfaces/interfaces';
+import { useSnackbar } from '../UseSnackBar/useSnackbar';
+import { Snackbar } from '@material-ui/core';
 
 const useStyles = makeStyles({
     button: {
@@ -45,6 +47,7 @@ interface CommentsModalProps {
 const CommentsModal = (props: CommentsModalProps) => {
 
     const classes = useStyles();
+    const snackBar = useSnackbar();
 
     const [open, setOpen] = React.useState(false);
 
@@ -81,6 +84,8 @@ const CommentsModal = (props: CommentsModalProps) => {
     const handleCommentPost = async () => {
         await CommentsAPI
             .postComentInPost(props.postId, sessionUser.id, commentValue, GoogleTokenId)
+            .then((data) => snackBar.openSnackbar("Comment added!"))
+            .catch((error) => snackBar.openSnackbar("Error adding comment!"))
         reloadComments()
     }
 
@@ -143,6 +148,7 @@ const CommentsModal = (props: CommentsModalProps) => {
                     </Button>
                 </DialogActions>
             </Dialog>
+            <Snackbar {...snackBar}/>
         </div>
     );
 }

@@ -41,7 +41,7 @@ const headerJsonAuthorization = (authToken: String) => {
     }
 }
 
-const postPost = (userId: number, contents: String, authTokenId: String) => {
+const postPost = (userId: number, contents: String, authTokenId: String) =>
     axios.post(
         config.apiURL + 'posts', 
         jsonify(contents), 
@@ -50,7 +50,6 @@ const postPost = (userId: number, contents: String, authTokenId: String) => {
     .then(res => {
     return res.data;
     })
-}
 
 const updatePost = (
     postId: number, 

@@ -5,10 +5,13 @@ import { logIn, setGoogleTokenId, setSessionUser }  from '../Redux/Actions';
 import { Redirect } from 'react-router-dom';
 import { UserAPI } from '../../Api/UserAPI'
 import { RootState } from '../../Interfaces/interfaces';
+import { useSnackbar } from '../UseSnackBar/useSnackbar';
+import { Snackbar } from '@material-ui/core';
 
 const GoogleAuthButton = () => {
 
     const dispatch = useDispatch();
+    const snackBar = useSnackbar();
 
     const onSuccessLogin = (response: any) => {
         dispatch(logIn())
@@ -22,6 +25,7 @@ const GoogleAuthButton = () => {
 
     const onFailureLogin = (response: any) => {
         console.log(response.tokenId);
+        snackBar.openSnackbar("Error loggining in.");
     }
     
     const sessionUser = useSelector((state: RootState) => state.sessionUser);
@@ -36,6 +40,7 @@ const GoogleAuthButton = () => {
                 cookiePolicy={'single_host_origin'}
             />
             {sessionUser ? <Redirect to="/Feed"></Redirect> : <div></div>}
+            <Snackbar {...snackBar}/>
         </div>
     );
 };

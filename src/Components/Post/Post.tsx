@@ -7,7 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import theme from '../../theme'
-import { CardHeader, IconButton, Menu } from '@material-ui/core';
+import { CardHeader, IconButton, Menu, Snackbar } from '@material-ui/core';
 import CommentsModal from '../CommentsModal/CommentsModal';
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import { useSelector } from 'react-redux';
@@ -15,6 +15,7 @@ import { PostProps, RootState } from '../../Interfaces/interfaces';
 import EditDialog from '../Dialogs/EditDialog/EditDialog';
 import DeleteDialog from '../Dialogs/DeleteDialog/DeleteDialog';
 import { PostAPI } from '../../Api/PostAPI';
+import { useSnackbar } from '../UseSnackBar/useSnackbar';
 
 const useStyles = makeStyles({
     subheader: {
@@ -37,6 +38,7 @@ const Post = (props: PostProps) => {
     const GoogleTokenId = useSelector((state: RootState) => state.GoogleTokenId);
     const [likes, setLikes] = React.useState(props.likes);
     const classes = useStyles();
+    const snackBar = useSnackbar();
 
     const showMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
@@ -62,22 +64,22 @@ const Post = (props: PostProps) => {
         PostAPI
         .likePost(props.postId, GoogleTokenId)
         .then((data) => {
-            alert("Post liked!")
             setLikes(likes + 1)
+            snackBar.openSnackbar("Post liked!")
         })
-        .catch((error: any) => alert(error.response.data))
+        .catch((error: any) => snackBar.openSnackbar(error.response.data))
     }
 
     const unlikePost = () => {
         PostAPI
         .unlikePost(props.postId, GoogleTokenId)
         .then((data) => {
-            alert("Post unliked!")
             setLikes(likes - 1)
+            snackBar.openSnackbar("Post unliked!")
         })
-        .catch((error: any) => alert(error.response.data))
+        .catch((error: any) => snackBar.openSnackbar(error.response.data))
     }
-
+    
     return (
         <Card className={classes.card}>
             <CardHeader 
@@ -117,6 +119,7 @@ const Post = (props: PostProps) => {
             <EditDialog isInFeed={props.isInFeed} isPost={true} postId={props.postId} userId={sessionUser.id} authToken={GoogleTokenId} contents={props.contents} commentId={0}/>
             <DeleteDialog isPost={true} objectId={props.postId} isInFeed={props.isInFeed} userId={props.userId} authToken={GoogleTokenId}/>
         </Menu>
+        <Snackbar {...snackBar}/>
         </Card>
     );
 }

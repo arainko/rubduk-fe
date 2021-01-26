@@ -1,4 +1,4 @@
-import { makeStyles, Theme, createStyles, Card, CardContent, Typography, CardActions, Button } from '@material-ui/core';
+import { makeStyles, Theme, createStyles, Card, CardContent, Typography, CardActions, Button, Snackbar } from '@material-ui/core';
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../Interfaces/interfaces';
@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Link as MaterialLink } from '@material-ui/core';
 import { FriendsAPI } from '../../Api/FriendsAPI';
 import { invitesNotLoaded, resetInvites, setInvites, invitesLoaded } from '../Redux/Actions';
+import { useSnackbar } from '../UseSnackBar/useSnackbar';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,6 +40,7 @@ interface InviteProps {
 const Invite = (props: InviteProps) => {
     const classes = useStyles();
     const GoogleTokenId = useSelector((state: RootState) => state.GoogleTokenId);
+    const snackBar = useSnackbar();
     const dispatch = useDispatch();
 
     const showButtons = () => {
@@ -70,16 +72,16 @@ const Invite = (props: InviteProps) => {
     const handleAccept = () => {
         FriendsAPI
         .acceptInvite(props.id, GoogleTokenId)
-        .then((data) => console.log(data))
-        .catch(error => alert(error.response.data.message))
+        .then((data) => snackBar.openSnackbar("Invite accepted."))
+        .catch(error => snackBar.openSnackbar(error.response.data.message))
         reloadRequests()
     }
 
     const handleDecline = () =>  {
         FriendsAPI
         .declineInvite(props.id, GoogleTokenId)
-        .then((data) => console.log(data))
-        .catch(error => alert(error.response.data.message))
+        .then((data) => snackBar.openSnackbar("Invite declined."))
+        .catch(error => snackBar.openSnackbar(error.response.data.message))
         reloadRequests()
     }
 
@@ -98,6 +100,7 @@ const Invite = (props: InviteProps) => {
             </CardContent>
             {showButtons()}
             </div>
+            <Snackbar {...snackBar}/>
         </Card>
     )
 }
