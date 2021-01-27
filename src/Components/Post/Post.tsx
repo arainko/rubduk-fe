@@ -91,7 +91,7 @@ const Post = (props: PostProps) => {
             </Typography>
             <CardHeader 
                 className={classes.subheader} color="white"
-                subheader={"added " + props.dateAdded}
+                subheader={"added " + (new Date(props.dateAdded)).toLocaleDateString() + " at " + (new Date(props.dateAdded)).toLocaleTimeString()}
                 action={
                     showAction()
                 }
@@ -123,7 +123,7 @@ const Post = (props: PostProps) => {
             onClose={handleClose}
         >
             <EditDialog isInFeed={props.isInFeed} isPost={true} postId={props.postId} userId={sessionUser.id} authToken={GoogleTokenId} contents={props.contents} commentId={0}/>
-            <DeleteDialog isPost={true} objectId={props.postId} isInFeed={props.isInFeed} userId={props.userId} authToken={GoogleTokenId}/>
+            <DeleteDialog isPost={true} postId={props.postId} isInFeed={props.isInFeed} userId={props.userId} authToken={GoogleTokenId}/>
         </Menu>
         <Snackbar {...snackBar}/>
         </Card>

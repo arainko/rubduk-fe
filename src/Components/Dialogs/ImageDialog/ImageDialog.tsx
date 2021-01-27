@@ -6,9 +6,15 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { IconButton, Paper } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
+import DeleteMediaDialog from '../DeleteDialog/DeleteMediaDialog';
 
 interface ImageDialogProps {
-    imgLink: string
+  id: number,
+  sessionUserId: number,
+  posterUserId: number,
+  authToken: string,
+  isInFeed: boolean,
+  imgLink: string
 }
 
 const ImageDialog = (props: ImageDialogProps) => {
@@ -22,10 +28,14 @@ const ImageDialog = (props: ImageDialogProps) => {
     setOpen(false);
   };
 
+  const handleDelete = () => {
+    setOpen(false);
+  }
+
   return (
     <div>
     <IconButton onClick={handleClickOpen}>
-        <InfoIcon fontSize="large" />
+        <InfoIcon fontSize="large" color="secondary"/>
     </IconButton>
       <Dialog maxWidth={'lg'} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title"></DialogTitle>
@@ -34,11 +44,23 @@ const ImageDialog = (props: ImageDialogProps) => {
           <img alt="image" src={props.imgLink} />
         </Paper>
         </DialogContent>
+        {props.posterUserId === props.sessionUserId
+        ? 
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClose} color="secondary">
+            Set as profile picture
+          </Button>
+          <DeleteMediaDialog mediaId={props.id} userId={props.sessionUserId} isInFeed={props.isInFeed} authToken={props.authToken}/>
+          <Button onClick={handleClose} color="secondary">
             Close
           </Button>
         </DialogActions>
+        :
+        <DialogActions>
+          <Button onClick={handleClose} color="secondary">
+            Close
+          </Button>
+        </DialogActions>}
       </Dialog>
     </div>
   );

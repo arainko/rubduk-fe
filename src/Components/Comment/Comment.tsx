@@ -71,7 +71,7 @@ const Comment = (props: CommentProps) => {
             </MaterialLink>
             </Typography>
             <CardHeader
-            subheader={"added " + props.dateAdded}
+            subheader={"added " + (new Date(props.dateAdded)).toLocaleDateString() + " at " + (new Date(props.dateAdded)).toLocaleTimeString()}
             action={
                 showAction()
             }
@@ -89,7 +89,7 @@ const Comment = (props: CommentProps) => {
             onClose={handleClose}
             >
                 <EditDialog isPost={false} postId={props.postId} userId={props.userId} authToken={GoogleTokenId} contents={props.contents} commentId={props.commentId}/>
-                <DeleteDialog isPost={false} objectId={props.commentId} userId={props.userId} authToken={GoogleTokenId}/>
+                <DeleteDialog isPost={false} postId={props.postId} commentId={props.commentId} userId={props.userId} authToken={GoogleTokenId}/>
             </Menu>
         </Card>
     )

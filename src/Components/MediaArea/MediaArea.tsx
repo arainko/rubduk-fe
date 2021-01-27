@@ -81,11 +81,14 @@ const MediaArea = (props: MediaAreaProps) => {
                     <GridListTile key={tile.link}>
                         <img src={tile.link} alt={tile.description} />
                         <GridListTileBar
-                            title={tile.dateAdded}
+                            title={"added " + (new Date(tile.dateAdded)).toLocaleDateString() + " at " + (new Date(tile.dateAdded)).toLocaleTimeString()}
                             subtitle={<span>{tile.description}</span>}
                             actionIcon={
-                                <ImageDialog imgLink={tile.link}/>
+                                <div>
+                                    <ImageDialog isInFeed={props.isInFeed} sessionUserId={props.userId} posterUserId={tile.userId} authToken={GoogleTokenId} imgLink={tile.link} id={tile.mediumId}/>
+                                </div>
                             }
+                            actionPosition="left"
                         />
                     </GridListTile>
                 ))}

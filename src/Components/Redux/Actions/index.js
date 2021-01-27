@@ -44,6 +44,13 @@ export const setProfileUser = (user) => {
 export const profileUserLoaded = () => {
     return {
         type: 'PROFILE_USER_LOADED',
+        payload: false
+    }
+}
+
+export const profileUserNotLoaded = () => {
+    return {
+        type: 'PROFILE_NOT_USER_LOADED',
         payload: true
     }
 }

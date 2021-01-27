@@ -46,8 +46,26 @@ const updateComment = (
         })
     }
 
+const headerJsonIDToken = (authToken: String) => {
+    return {
+        headers: {
+            'Authorization': authToken
+        }
+    }
+}
+
+const deleteComment = (postId: number, commentId: number | undefined, authTokenId: String) =>
+    axios.delete(
+        config.apiURL + 'posts/' + postId + "/comments/" + commentId, 
+        headerJsonIDToken(authTokenId)
+        )
+    .then(res => {
+    return res.data;
+    })
+
 export const CommentsAPI = {
     fetchCommentstsByPostId: fetchCommentsByPostId,
     postComentInPost: postComentInPost,
-    updateComment: updateComment
+    updateComment: updateComment,
+    deleteComment: deleteComment
 };

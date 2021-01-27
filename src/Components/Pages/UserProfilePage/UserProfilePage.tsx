@@ -21,7 +21,7 @@ export default function UserProfilePage({ match } : RouteComponentProps<RouteInf
     const history = useHistory();
 
     useEffect(() => {
-        if (sessionUser === null || userId === null) {
+        if (sessionUser === null || sessionUser === undefined || userId === null) {
             history.push({
                 pathname:  "/"
             });
@@ -32,7 +32,12 @@ export default function UserProfilePage({ match } : RouteComponentProps<RouteInf
     <ThemeProvider theme={theme}>
         <CssBaseline />
         <Navbar />
-        <UserProfile userId={userId}/>
+        {sessionUser === null || sessionUser === undefined || userId === null
+            ? history.push({
+                pathname:  "/"
+            })
+            : <UserProfile userId={userId} sessionUserId={sessionUser.id}/>
+        }
     </ThemeProvider>
     )
 }

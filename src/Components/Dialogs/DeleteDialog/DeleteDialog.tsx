@@ -7,6 +7,12 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import theme from '../../../theme';
 import { makeStyles, MenuItem } from '@material-ui/core';
+import { CommentsAPI } from '../../../Api/CommentsAPI';
+import { Snackbar } from '@material-ui/core';
+import { useSnackbar } from '../../UseSnackBar/useSnackbar';
+import { useDispatch } from 'react-redux';
+import { commentsLoaded, commentsNotLoaded, postsLoaded, postsNotLoaded, resetComments, setComments, setPosts } from '../../Redux/Actions';
+import { PostAPI } from '../../../Api/PostAPI';
 
 const useStyles = makeStyles({
     dangerousButton: {
@@ -20,7 +26,8 @@ const useStyles = makeStyles({
 type DialogProps = {
     isPost: boolean,
     isInFeed?: boolean,
-    objectId: number,
+    postId: number,
+    commentId?: number,
     userId: number,
     authToken: string
 }
@@ -29,6 +36,8 @@ const DeleteDialog = (props: DialogProps) => {
     const [open, setOpen] = React.useState(false);
     const [contentType, setContentType] = React.useState("");
     const classes = useStyles();
+    const snackBar = useSnackbar();
+    const dispatch = useDispatch();
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -39,7 +48,88 @@ const DeleteDialog = (props: DialogProps) => {
     };
 
     const handleDelete = () => {
-        
+        if (!props.isPost) {
+            deleteComment()
+        } else if (props.isInFeed) {
+            deletePostInFeed()
+        } else {
+            deletePostInProfile()
+        }
+    }
+
+    const deletePostInFeed = () => {
+        dispatch(postsNotLoaded())
+        PostAPI
+            .deletePost(props.postId, props.authToken)
+            .then((data) => {
+                snackBar.openSnackbar("Post deleted!")
+                PostAPI
+                .fetchPostsByFriends(props.authToken)
+                .then(async (data) => {
+                    dispatch(setPosts(data))
+                    dispatch(postsLoaded())
+                })
+                .catch(async (error) => {
+                    snackBar.openSnackbar(error.response.data)
+                    dispatch(setPosts(null))
+                    dispatch(postsLoaded())
+                })
+            })
+            .catch((error) => {
+                snackBar.openSnackbar(error.response.data)
+                dispatch(postsLoaded())
+            })
+        handleClose()
+    }
+
+    const deletePostInProfile = () => {
+        dispatch(postsNotLoaded())
+        PostAPI
+            .deletePost(props.postId, props.authToken)
+            .then((data) => {
+                snackBar.openSnackbar("Post deleted!")
+                PostAPI
+                .fetchPostsByUserId(props.userId)
+                .then(async (data) => {
+                    dispatch(setPosts(data))
+                    dispatch(postsLoaded())
+                })
+                .catch(async (error) => {
+                    snackBar.openSnackbar(error.response.data)
+                    dispatch(setPosts(null))
+                    dispatch(postsLoaded())
+                })
+            })
+            .catch((error) => {
+                snackBar.openSnackbar(error.response.data)
+                dispatch(postsLoaded())
+            })
+        handleClose()
+    }
+
+    const deleteComment = () => {
+        dispatch(commentsNotLoaded())
+        CommentsAPI
+            .deleteComment(props.postId, props.commentId, props.authToken)
+            .then((data) => {
+                snackBar.openSnackbar("Comment deleted!")
+                CommentsAPI
+                .fetchCommentstsByPostId(props.postId)
+                .then(async (data) => {
+                    dispatch(setComments(data))
+                    dispatch(commentsLoaded())
+                })
+                .catch(async (error) => {
+                    snackBar.openSnackbar(error.response.data)
+                    dispatch(resetComments())
+                    dispatch(commentsLoaded())
+                })
+            })
+            .catch((error) => {
+                snackBar.openSnackbar(error.response.data)
+                dispatch(commentsLoaded())
+            })
+        handleClose()
     }
 
     useEffect(() => {
@@ -76,6 +166,7 @@ const DeleteDialog = (props: DialogProps) => {
                     </Button>
                 </DialogActions>
             </Dialog>
+            <Snackbar {...snackBar}/>
         </div>
     );
 }

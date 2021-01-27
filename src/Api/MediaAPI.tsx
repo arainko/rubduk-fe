@@ -25,6 +25,15 @@ const headerJsonAuthorization = (authToken: string) => {
     }
 }
 
+const deleteMedia = (mediumId: number, authTokenId: string) =>
+    axios.delete(
+        config.apiURL + 'users/media/' + mediumId, 
+        headerJsonAuthorization(authTokenId)
+        )
+    .then(res => {
+    return res.data;
+    })
+
 const fetchMediaByUserId = (userId: number) => axios.get(config.apiURL + 'users/' + userId + '/media')
     .then(res => {
     return res.data.entities;
@@ -62,5 +71,5 @@ const convertToBase64 = (file: any) => {
 }
 
 export const MediaAPI = {
-    fetchMediaByUserId, postMediaByUserToken, fetchMediaByFriends, convertToBase64
+    fetchMediaByUserId, postMediaByUserToken, fetchMediaByFriends, convertToBase64, deleteMedia
 };

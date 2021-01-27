@@ -4,7 +4,7 @@ import { UserAPI } from '../../Api/UserAPI';
 import { makeStyles } from '@material-ui/core/styles';
 import ProfileCard from '../ProfleCard/ProfileCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { setProfileUser, profileUserLoaded } from '../Redux/Actions';
+import { setProfileUser, profileUserLoaded, profileUserNotLoaded } from '../Redux/Actions';
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 import { Typography } from '@material-ui/core';
 import theme from '../../theme';
@@ -13,7 +13,8 @@ import PostTabs from '../PostTabs/PostTabs';
 import PostWriter from '../PostWriter/PostWriter';
 
 interface UserProfileProps {
-    userId: number
+    userId: number,
+    sessionUserId: number
 }
 
 const useStyles = makeStyles({
@@ -42,7 +43,7 @@ const UserProfile = (props: UserProfileProps) => {
             } else {
                 return (<div id={"user-info"}>
                 <div id={"profile-card"}>
-                    {<ProfileCard name={profileUser.name} lastName={profileUser.lastName} createdOn={profileUser.createdOn}/>}
+                    {<ProfileCard userId={props.userId} sessionUserId={props.sessionUserId} name={profileUser.name} lastName={profileUser.lastName} createdOn={profileUser.createdOn}/>}
                 </div>
                 <div id={"post-area"}>
                     <PostWriter isInFeed={false} userId={profileUser.id}/>
@@ -53,6 +54,7 @@ const UserProfile = (props: UserProfileProps) => {
     }
 
     useEffect(() => {
+            dispatch(profileUserNotLoaded())
             UserAPI.fetchUserWithId(props.userId)
             .then((downloadedUser) => {
                 dispatch(setProfileUser(downloadedUser))

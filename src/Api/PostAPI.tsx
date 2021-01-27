@@ -41,6 +41,16 @@ const headerJsonAuthorization = (authToken: String) => {
     }
 }
 
+const deletePost = (postId: number, authTokenId: String) =>
+    axios.delete(
+        config.apiURL + 'posts/' + postId, 
+        headerJsonAuthorization(authTokenId)
+        )
+    .then(res => {
+    return res.data;
+    })
+
+
 const postPost = (userId: number, contents: String, authTokenId: String) =>
     axios.post(
         config.apiURL + 'posts', 
@@ -85,5 +95,5 @@ const likePostOrNot = (postId: number, authTokenId: string, endUrl: string) =>
         })
 
 export const PostAPI = {
-    fetchPosts, fetchPostsByUserId, postPost, updatePost, fetchPostsByFriends, likePost, unlikePost
+    fetchPosts, fetchPostsByUserId, postPost, updatePost, fetchPostsByFriends, likePost, unlikePost, deletePost
 };
