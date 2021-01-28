@@ -51,6 +51,7 @@ const MyFriends = () => {
             name={friend.name}
             lastName={friend.lastName}
             dateOfBirth={friend.dateOfBirth}
+            imageLink={friend.profilePic}
             />)
         }
     })

@@ -64,6 +64,7 @@ const SearchFriendsArea = () => {
                 dateOfBirth={friend.dateOfBirth}
                 isInvite={false}
                 isSearched={true}
+                imageLink={friend.profilePic}
                 />
             )
         }

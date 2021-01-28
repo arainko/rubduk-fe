@@ -14,7 +14,8 @@ import PostWriter from '../PostWriter/PostWriter';
 
 interface UserProfileProps {
     userId: number,
-    sessionUserId: number
+    sessionUserId: number,
+    isSessionUser: boolean
 }
 
 const useStyles = makeStyles({
@@ -30,6 +31,8 @@ const UserProfile = (props: UserProfileProps) => {
 
     const dispatch = useDispatch();
     const classes = useStyles();
+    const sessionUser = useSelector((state: RootState) => state.sessionUser);
+
     const profileUser = useSelector((state: RootState) => state.profileUser);
     const isSpinnerVisible = useSelector((state: RootState) => state.isSpinnerInUserPage);
 
@@ -43,7 +46,17 @@ const UserProfile = (props: UserProfileProps) => {
             } else {
                 return (<div id={"user-info"}>
                 <div id={"profile-card"}>
-                    {<ProfileCard userId={props.userId} sessionUserId={props.sessionUserId} name={profileUser.name} lastName={profileUser.lastName} createdOn={profileUser.createdOn}/>}
+                    <ProfileCard 
+                    imageLink={
+                        props.isSessionUser
+                        ? sessionUser.profilePic
+                        : profileUser.profilePic
+                    } 
+                    userId={props.userId} 
+                    sessionUserId={props.sessionUserId} 
+                    name={profileUser.name} 
+                    lastName={profileUser.lastName} 
+                    createdOn={profileUser.createdOn}/>
                 </div>
                 <div id={"post-area"}>
                     <PostWriter isInFeed={false} userId={profileUser.id}/>

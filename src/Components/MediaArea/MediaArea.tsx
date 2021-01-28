@@ -85,7 +85,7 @@ const MediaArea = (props: MediaAreaProps) => {
                             subtitle={<span>{tile.description}</span>}
                             actionIcon={
                                 <div>
-                                    <ImageDialog isInFeed={props.isInFeed} sessionUserId={props.userId} posterUserId={tile.userId} authToken={GoogleTokenId} imgLink={tile.link} id={tile.mediumId}/>
+                                    <ImageDialog isInFeed={props.isInFeed} posterUserId={tile.userId} authToken={GoogleTokenId} imgLink={tile.link} id={tile.mediumId}/>
                                 </div>
                             }
                             actionPosition="left"

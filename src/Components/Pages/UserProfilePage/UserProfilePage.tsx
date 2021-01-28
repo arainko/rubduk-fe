@@ -3,10 +3,13 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RouteComponentProps, useHistory } from "react-router-dom";
+import { UserAPI } from "../../../Api/UserAPI";
 import { RootState } from "../../../Interfaces/interfaces";
 import theme from "../../../theme";
 import Navbar from "../../Navbar/Nabvar"
 import UserProfile from "../../UserProfile/UserProfile";
+import { Snackbar } from '@material-ui/core';
+import { useSnackbar } from "../../UseSnackBar/useSnackbar";
 
 interface RouteInfo {
     userId: string;
@@ -19,6 +22,7 @@ export default function UserProfilePage({ match } : RouteComponentProps<RouteInf
 
     const sessionUser = useSelector((state: RootState) => state.sessionUser);
     const history = useHistory();
+    const snackBar = useSnackbar();
 
     useEffect(() => {
         if (sessionUser === null || sessionUser === undefined || userId === null) {
@@ -36,8 +40,15 @@ export default function UserProfilePage({ match } : RouteComponentProps<RouteInf
             ? history.push({
                 pathname:  "/"
             })
-            : <UserProfile userId={userId} sessionUserId={sessionUser.id}/>
+            : <UserProfile 
+                userId={userId} 
+                isSessionUser={sessionUser.id === userId
+                ? true
+                : false
+                } 
+                sessionUserId={sessionUser.id}/>
         }
+        <Snackbar {...snackBar}/>
     </ThemeProvider>
     )
 }

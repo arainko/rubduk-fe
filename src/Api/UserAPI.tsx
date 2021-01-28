@@ -29,6 +29,13 @@ const deleteAccount = (token: string) => axios.delete(
     return res.data;
 })
 
+const getById = (id: number) => axios.get(
+    config.apiURL + 'users/' + id,
+    )
+    .then(res => {
+    return res.data;
+})
+
 const searchUsersByName = (token: string, query: string) => axios.get(
     config.apiURL + 'users?name=' + query,
     headerJsonAuthorization(token)
@@ -52,5 +59,5 @@ const registerNewUser = (tokenId: String) => axios.post(
 })
 
 export const UserAPI = {
-    fetchUserWithId, registerNewUser, searchUsersByName, deleteAccount
+    fetchUserWithId, registerNewUser, searchUsersByName, deleteAccount, getById
 };

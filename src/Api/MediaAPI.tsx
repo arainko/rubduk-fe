@@ -47,6 +47,15 @@ const fetchMediaByFriends = (token: string) => axios.get(
     return res.data.entities;
 })
 
+const useAsProfilePicture = (token: string, mediaId: number) => axios.put(
+    config.apiURL + 'users/me/pic', 
+    mediaId,
+    headerJsonConfiguration(token)
+    )
+    .then(res => {
+    return res.data;
+})
+
 const postMediaByUserToken = (token: string, base64media: string, description?: any) => axios.post(
     config.apiURL + 'users/media', 
     jsonify(description, base64media),
@@ -71,5 +80,5 @@ const convertToBase64 = (file: any) => {
 }
 
 export const MediaAPI = {
-    fetchMediaByUserId, postMediaByUserToken, fetchMediaByFriends, convertToBase64, deleteMedia
+    fetchMediaByUserId, postMediaByUserToken, fetchMediaByFriends, convertToBase64, deleteMedia, useAsProfilePicture
 };
