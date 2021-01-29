@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import theme from '../../../theme';
-import { makeStyles, MenuItem } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import { Snackbar } from '@material-ui/core';
 import { useSnackbar } from '../../UseSnackBar/useSnackbar';
 import { useDispatch } from 'react-redux';

@@ -74,16 +74,6 @@ const headerJsonAuthorization = (authToken: String) => {
     }
 }
 
-const headerJsonConfiguration = (userId: number, authToken: String) => {
-    return {
-        headers: {
-            'User-id': userId,
-            'Authorization': authToken,
-            'content-type': 'application/json'
-        }
-    }
-}
-
 export const FriendsAPI = {
     fetchFriends, addFriend, fetchSentInvites, fetchIncomingInvites, acceptInvite, declineInvite
 };

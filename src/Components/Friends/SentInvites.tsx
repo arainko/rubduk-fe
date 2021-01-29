@@ -1,12 +1,11 @@
 import { makeStyles, Paper, Typography } from '@material-ui/core';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { FriendsAPI } from '../../Api/FriendsAPI';
 import { RootState } from '../../Interfaces/interfaces';
 import theme from '../../theme';
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 import { invitesLoaded, invitesNotLoaded, resetInvites, setInvites } from '../Redux/Actions';
-import FriendCard from './FriendCard';
 import Invite from './Invite';
 
 const useStyles = makeStyles({
@@ -33,7 +32,7 @@ const SentInvites = () => {
             dispatch(invitesLoaded())
         })
         .catch((error) => alert(error.response.data.message))
-    }, [dispatch])
+    }, [dispatch, GoogleTokenId])
 
     const showInvites = () => {
         if (invites === null || invites === undefined || invites.length === 0) {

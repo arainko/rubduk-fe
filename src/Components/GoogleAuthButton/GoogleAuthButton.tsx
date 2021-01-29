@@ -24,7 +24,6 @@ const GoogleAuthButton = () => {
     }
 
     const onFailureLogin = (response: any) => {
-        console.log(response.tokenId);
         snackBar.openSnackbar("Error loggining in.");
     }
     

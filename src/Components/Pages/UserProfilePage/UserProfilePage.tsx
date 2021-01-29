@@ -3,7 +3,6 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RouteComponentProps, useHistory } from "react-router-dom";
-import { UserAPI } from "../../../Api/UserAPI";
 import { RootState } from "../../../Interfaces/interfaces";
 import theme from "../../../theme";
 import Navbar from "../../Navbar/Nabvar"

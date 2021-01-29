@@ -46,7 +46,7 @@ const PostArea = (props: PostAreaProps) => {
                     dispatch(postsLoaded())
                 })
         }
-    }, [props.userId, props.isInFeed, dispatch]);
+    }, [props.userId, props.isInFeed, GoogleTokenId, dispatch]);
 
     const showPosts = (() => {
         if (posts === null) {

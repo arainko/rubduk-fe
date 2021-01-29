@@ -36,7 +36,7 @@ const MyFriends = () => {
                 await dispatch(setFriends(data.filter((user: { email: any; }) => user.email !== sessionUser.email)))
             })
         dispatch(friendsLoaded())
-    }, [dispatch]);
+    }, [dispatch, GoogleTokenId, sessionUser.email]);
 
     const showFriends = (() => {
         if (friends === null || friends.length === 0) {

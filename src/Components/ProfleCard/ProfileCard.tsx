@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
-import { Button, CardActions, Grid } from '@material-ui/core';
+import { CardActions, Grid } from '@material-ui/core';
 import DeleteAccountDialog from '../Dialogs/DeleteDialog/DeleteAccountDialog';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../Interfaces/interfaces';

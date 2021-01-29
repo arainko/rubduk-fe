@@ -1,5 +1,5 @@
 import { makeStyles, Paper, Typography } from '@material-ui/core';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { FriendsAPI } from '../../Api/FriendsAPI';
 import { RootState } from '../../Interfaces/interfaces';
@@ -32,7 +32,7 @@ const IncomingInvites = () => {
             dispatch(invitesLoaded())
         })
         .catch((error) => alert(error.response.data.message))
-    }, [dispatch])
+    }, [dispatch, GoogleTokenId])
 
     const showInvites = () => {
         if (invites === null || invites === undefined || invites.length === 0) {

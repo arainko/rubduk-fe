@@ -50,14 +50,6 @@ const PostWriter = (props: PostWriterProps) => {
   const mediaToUpload = useSelector((state: RootState) => state.mediaToUpload);
   const snackBar = useSnackbar();
 
-  const checkMediaValue = () => {
-    if (mediaValue.length === 0) {
-      return "No media selected."
-    } else {
-      return "sdd"
-    }
-  }
-
   const handlePostPost = async () => {
     if (mediaToUpload === null) {
       dispatch(postsNotLoaded())

@@ -9,9 +9,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import DeleteMediaDialog from '../DeleteDialog/DeleteMediaDialog';
 import { MediaAPI } from '../../../Api/MediaAPI';
 import { useSnackbar } from '../../UseSnackBar/useSnackbar';
-import { useDispatch, useSelector } from 'react-redux';
-import { profileUserNotLoaded, profileUserLoaded, setProfileUser } from '../../Redux/Actions';
-import { UserAPI } from '../../../Api/UserAPI';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../../Interfaces/interfaces';
 
 interface ImageDialogProps {
@@ -25,7 +23,6 @@ interface ImageDialogProps {
 const ImageDialog = (props: ImageDialogProps) => {
   const [open, setOpen] = React.useState(false);
   const snackBar = useSnackbar();
-  const dispatch = useDispatch();
   const sessionUser = useSelector((state: RootState) => state.sessionUser);
 
   const handleClickOpen = () => {
@@ -39,8 +36,8 @@ const ImageDialog = (props: ImageDialogProps) => {
   const handleSet = () => {
     MediaAPI
     .useAsProfilePicture(props.authToken, props.id)
-    .then((data) => snackBar.openSnackbar("Profile picture changed! You may need to wait a few minutes to see the changes."))
-    .catch((error) => snackBar.openSnackbar("Error changing profile picture!"))
+    .then(() => snackBar.openSnackbar("Profile picture changed! You may need to wait a few minutes to see the changes."))
+    .catch(() => snackBar.openSnackbar("Error changing profile picture!"))
     setOpen(false);
   }
 
@@ -53,7 +50,7 @@ const ImageDialog = (props: ImageDialogProps) => {
         <DialogTitle id="form-dialog-title"></DialogTitle>
         <DialogContent>
         <Paper variant="outlined">
-          <img alt="image" src={props.imgLink} />
+          <img alt="" src={props.imgLink} />
         </Paper>
         </DialogContent>
         {props.posterUserId === sessionUser.id
@@ -62,8 +59,6 @@ const ImageDialog = (props: ImageDialogProps) => {
           <Button onClick={handleSet} color="secondary">
             Set as profile picture
           </Button>
-          {console.log(props.posterUserId)}
-          {console.log(sessionUser.id)}
           <DeleteMediaDialog mediaId={props.id} userId={sessionUser.id} isInFeed={props.isInFeed} authToken={props.authToken}/>
           <Button onClick={handleClose} color="secondary">
             Close
